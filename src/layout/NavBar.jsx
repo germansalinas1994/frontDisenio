@@ -166,7 +166,7 @@ const NavBar = ({ children, themeSwitch }) => {
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBar position="fixed" open={open}>
+      <AppBar sx={{backgroundColor:"#B4EAE9"}} position="fixed" open={open}>
         <Toolbar>
           <IconButton
             color="inherit"
