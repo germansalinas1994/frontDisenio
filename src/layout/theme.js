@@ -1,6 +1,8 @@
 import { createTheme } from '@mui/material';
 
 const theme = createTheme({
+
+  fontFamily:'roboto', 
   palette: {
     background: {
       default: '#F5F5F5',

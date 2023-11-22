@@ -20,11 +20,11 @@ import PinterestIcon from '@mui/icons-material/Pinterest';
 // Declaro un array de objetos con las propiedades id, name y route. 
 // Luego, en el componente ResponsiveAppBar, itero sobre ese array y muestro los elementos en el menú de navegación.
 //  El componente ResponsiveAppBar es el siguiente:
-const pagesNav = [
+ const pagesNav = [
   { id: 1, name: 'Productos', route: '/productos' },
   { id: 2, name: 'Categorias', route: '/categorias' },
   { id: 3, name: 'Blog', route: '/blog' }
-]
+] 
 
 const settings = [
   { id: 1, name: 'Perfil', route: '/perfil' },
@@ -66,30 +66,33 @@ function ResponsiveAppBar() {
 
 
 
-        {/* Aca esta el logo */}
+        {/* Aca esta el logo 
         <Link to={'/'} style={{ color: 'inherit', textDecoration: 'none' }}>
           <PinterestIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
         </Link>
+        src= "https://www.frp.utn.edu.ar/info2/wp-content/uploads/2018/08/utn-nacional.jpg"
+        */}
 
         {/* esto es el texto del logo */}
         {/* el boton me tiene que llevar a la pagina de inicio */}
         <Link to={'/'} style={{ color: 'inherit', textDecoration: 'none' }}>
 
           <Typography
-            variant="h6"
-            noWrap
+            variant="h5"
+            //noWrap
             component="a"
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
+              fontFamily: 'roboto',
               fontWeight: 700,
               letterSpacing: '.3rem',
               color: 'inherit',
               textDecoration: 'none',
             }}
           >
-            ECommerce
+            PROYECTOS DE INVESTIGACION Y
+            DESARROLLO
           </Typography>
         </Link>
 
@@ -165,11 +168,11 @@ function ResponsiveAppBar() {
           <Tooltip title="Open settings">
             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
               {/* en el src del avatar va la imagen del usuario, por ahora es una imagen de prueba, despues va a ser la imagen del usuario logueado */}
-              <Avatar alt="Remy Sharp" src="https://mui.com/static/images/avatar/2.jpg" />
+              <Avatar alt="Remy Sharp" src="https://www.frp.utn.edu.ar/info2/wp-content/uploads/2018/08/utn-nacional.jpg" />
             </IconButton>
           </Tooltip>
           <Menu
-            sx={{ mt: '45px' }}
+            sx={{ mt: '50px' }}
             id="menu-appbar"
             anchorEl={anchorElUser}
             anchorOrigin={{

@@ -22,6 +22,7 @@ import Switch from '@mui/material/Switch';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import ThemeContext from './ThemeContext';
+import Collapse from '@mui/material/Collapse';
 import { useNavigate } from 'react-router-dom';
 import {
   ShoppingBasket,
@@ -35,11 +36,12 @@ import {
   Storefront,
   RateReview,
   Settings,
+  LabelOutlined,
+  Label,
 } from '@mui/icons-material';
 
 
-
-const drawerWidth = 240;
+const drawerWidth = 275;
 
 
 
@@ -117,7 +119,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 const NavBar = ({ children, themeSwitch }) => {
 
-
+  
   const navigate = useNavigate();
 
   const handleNavigation = (route) => {
@@ -126,6 +128,13 @@ const NavBar = ({ children, themeSwitch }) => {
     //este metodo es para cerrar el menu cuando se hace click en un item
     // handleDrawerClose();
   }
+  // Agrega el estado local para rastrear si el submenú está abierto o cerrado
+  const [isSubmenuOpen, setSubmenuOpen] = React.useState(false);
+
+  // Función para manejar el clic en "Gestión de Proyectos"
+  const handleProyectosClick = () => {
+    setSubmenuOpen(!isSubmenuOpen);
+  };
 
   const theme = useTheme();
 
@@ -135,25 +144,22 @@ const NavBar = ({ children, themeSwitch }) => {
 
 
   // opciones de menu del cliente, armo un arreglo con el Nombre que muestra, la url a la que redirecciona y el icono que muestra
+
   const clientOptions = [
-    { name: 'Pedidos', route: '/orders', icon: <ShoppingBasket /> },
-    { name: 'Carrito', route: '/cart', icon: <ShoppingCart /> },
-    { name: 'Favoritos', route: '/wishlist', icon: <Favorite /> },
-    { name: 'Historial de Pedidos', route: '/order-history', icon: <History /> },
-    { name: 'Mi Cuenta', route: '/account', icon: <AccountCircle /> },
-    { name: 'Ayuda y Soporte', route: '/help', icon: <Help /> },
+    {
+      name: 'Gestion de Proyectos',
+      route: '/orders',
+      icon: <LabelOutlined />,
+      submenu: [
+        { name: 'PID', route: '/orders', icon: <LabelOutlined /> },
+        { name: 'INICIATIVA DE INVESTIGACION', route: '/orders', icon: <LabelOutlined /> },
+      ],
+    },
+  
+    { name: 'Gestion Financiamiento', route: '/cart', icon: <LabelOutlined /> },
+    { name: 'Gestion de Becas', route: '/wishlist', icon: <LabelOutlined /> },
   ];
-
-  // opciones de menu del proveedor, armo un arreglo con el Nombre que muestra, la url a la que redirecciona y el icono que muestra
-  const providerOptions = [
-    { name: 'Gestión de Productos', route: '/manage-products', icon: <Store /> },
-    { name: 'Estadísticas de Ventas', route: '/sales-analytics', icon: <BarChart /> },
-    { name: 'Inventario', route: '/inventory', icon: <Storefront /> },
-    { name: 'Valoraciones', route: '/reviews', icon: <RateReview /> },
-    { name: 'Ayuda y Soporte', route: '/help', icon: <Help /> },
-    { name: 'Configuración', route: '/settings', icon: <Settings /> },
-  ];
-
+  
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -166,7 +172,7 @@ const NavBar = ({ children, themeSwitch }) => {
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBar sx={{backgroundColor:"#B4EAE9"}} position="fixed" open={open}>
+      <AppBar position="fixed" open={open}   sx={{backgroundColor:"#B4EAE9"}}>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -202,33 +208,40 @@ const NavBar = ({ children, themeSwitch }) => {
             {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
           </IconButton>
         </DrawerHeader>
-        <Divider />
+        
         <List>
-          {/* Recorro el arreglo de opciones de menu del cliente y por cada una creo un item de la lista */}
-          {clientOptions.map((option) => (
-            <ListItem key={option.name} disablePadding sx={{ display: 'block' }}>
-              <ListItemButton onClick={() => handleNavigation(option.route)}>
+        {clientOptions.map((option) => (
+          <React.Fragment key={option.name}>
+            <ListItem disablePadding sx={{ display: 'block' }}>
+              <ListItemButton onClick={option.name === 'Gestion de Proyectos' ? handleProyectosClick : () => handleNavigation(option.route)}>
                 <ListItemIcon>{option.icon}</ListItemIcon>
-                <ListItemText primary={option.name} sx={{ opacity: open ? 1 : 0 }} />
+                <ListItemText primary={option.name} sx={{ opacity: open ? 1 : 0}} primaryTypographyProps={{ style: { fontWeight: 'bold' } }} />
               </ListItemButton>
             </ListItem>
+              {option.name === 'Gestion de Proyectos' && option.submenu && (
+                <Collapse in={isSubmenuOpen} timeout="auto" unmountOnExit>
+                  <List sx={{ paddingLeft: 0 }}>
+                    {option.submenu.map((subItem) => (
+                      <ListItem
+                        key={subItem.name}
+                        disablePadding
+                        sx={{ display: 'block', paddingLeft: 2,  backgroundColor: '#B4EAE9' }}
+                      >
+                        <ListItemButton onClick={() => handleNavigation(subItem.route)} sx={{backgroundcolor: '#B4EAE9' }}>
+                          {/*<ListItemIcon>{subItem.icon}</ListItemIcon>*/}
+                          <ListItemText primary={subItem.name} sx={{ opacity: open ? 1 : 0}} primaryTypographyProps={{ style: { fontWeight: 'bold' } }} />
+                        </ListItemButton>
+                      </ListItem>
+                    ))}
+                  </List>
+                </Collapse>
+              )}
+            </React.Fragment>
           ))}
         </List>
-        {/* El divider me separa las opciones de menu del cliente de las del proveedor */}
-        <Divider />
-        <List>
-          {/* Recorro el arreglo de opciones de menu del proveedor y por cada una creo un item de la lista */}
-          {providerOptions.map((option) => (
-            <ListItem key={option.name} disablePadding sx={{ display: 'block' }}>
-              <ListItemButton onClick={() => handleNavigation(option.route)}>
-                <ListItemIcon>{option.icon}</ListItemIcon>
-                <ListItemText primary={option.name} sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
-
-    
+       
+        
+            
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
