@@ -19,23 +19,12 @@ import PinterestIcon from '@mui/icons-material/Pinterest';
 
 // Declaro un array de objetos con las propiedades id, name y route. 
 // Luego, en el componente ResponsiveAppBar, itero sobre ese array y muestro los elementos en el menú de navegación.
-//  El componente ResponsiveAppBar es el siguiente:
- const pagesNav = [
-  { id: 1, name: 'Productos', route: '/productos' },
-  { id: 2, name: 'Categorias', route: '/categorias' },
-  { id: 3, name: 'Blog', route: '/blog' }
-] 
+
 
 const settings = [
-  { id: 1, name: 'Perfil', route: '/perfil' },
-  { id: 2, name: 'Cuenta', route: '/cuenta' },
-  { id: 3, name: 'Dashboard', route: '/dashboard' },
-  { id: 4, name: 'Logout', route: '/logout' }
+  { id: 1, name: 'Logout', route: '/logout' }
 ]
 
-
-
-// const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function ResponsiveAppBar() {
 
@@ -63,8 +52,6 @@ function ResponsiveAppBar() {
   return (
     <Container maxWidth="xl">
       <Toolbar disableGutters>
-
-
 
         {/* Aca esta el logo 
         <Link to={'/'} style={{ color: 'inherit', textDecoration: 'none' }}>
@@ -131,45 +118,22 @@ function ResponsiveAppBar() {
               display: { xs: 'block', md: 'none' },
             }}
           >
-            {pagesNav.map((page) => (
-              <Link to={page.route.toLowerCase()} style={{ color: 'inherit', textDecoration: 'none' }}>
 
-                <MenuItem key={page.id} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page.name}</Typography>
-                </MenuItem>
-              </Link>
-
-            ))}
           </Menu>
         </Box>
-
-        {/* este box es para el menu de navegacion si esta la pantalla expandida */}
-        <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-          {pagesNav.map((page) => (
-            <Link to={page.route.toLowerCase()} style={{ color: 'inherit', textDecoration: 'none' }}>
-
-              <Button
-                key={page.id}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                {page.name}
-
-              </Button>
-            </Link>))}
-        </Box>
-
-
 
 
         {/* Este box es para el boton de login o para info del usuario */}
 
-
-        <Box sx={{ flexGrow: 0 }}>
+        <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'flex-end' }}>
           <Tooltip title="Open settings">
-            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-              {/* en el src del avatar va la imagen del usuario, por ahora es una imagen de prueba, despues va a ser la imagen del usuario logueado */}
-              <Avatar alt="Remy Sharp" src="https://www.frp.utn.edu.ar/info2/wp-content/uploads/2018/08/utn-nacional.jpg" />
-            </IconButton>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              {/* Otros elementos si los hay */}
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                {/* en el src del avatar va la imagen del usuario, por ahora es una imagen de prueba, después va a ser la imagen del usuario logueado */}
+                <Avatar alt="Remy Sharp" src="https://www.frp.utn.edu.ar/info2/wp-content/uploads/2018/08/utn-nacional.jpg" />
+              </IconButton>
+            </div>
           </Tooltip>
           <Menu
             sx={{ mt: '50px' }}
@@ -189,13 +153,10 @@ function ResponsiveAppBar() {
           >
             {settings.map((setting) => (
               <Link to={setting.route.toLowerCase()} style={{ color: 'inherit', textDecoration: 'none' }}>
-
                 <MenuItem key={setting.id} onClick={handleCloseUserMenu}>
-
                   <Typography textAlign="center">{setting.name}</Typography>
                 </MenuItem>
               </Link>
-
             ))}
           </Menu>
         </Box>

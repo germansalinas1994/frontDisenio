@@ -18,7 +18,6 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import ResponsiveAppBar from './ResponsiveAppBar';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import Switch from '@mui/material/Switch';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import ThemeContext from './ThemeContext';
@@ -117,7 +116,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 //componente que se encarga de mostrar el menu lateral
 
 
-const NavBar = ({ children, themeSwitch }) => {
+const NavBar = ({ children }) => {
 
   
   const navigate = useNavigate();
@@ -148,16 +147,15 @@ const NavBar = ({ children, themeSwitch }) => {
   const clientOptions = [
     {
       name: 'Gestion de Proyectos',
-      route: '/orders',
       icon: <LabelOutlined />,
       submenu: [
-        { name: 'PID', route: '/orders', icon: <LabelOutlined /> },
-        { name: 'INICIATIVA DE INVESTIGACION', route: '/orders', icon: <LabelOutlined /> },
+        { name: 'PID', route: '/pid', icon: <LabelOutlined /> },
+        { name: 'INICIATIVA DE INVESTIGACION', route: '/iniciativadeinvestigacion', icon: <LabelOutlined /> },
       ],
     },
   
-    { name: 'Gestion Financiamiento', route: '/cart', icon: <LabelOutlined /> },
-    { name: 'Gestion de Becas', route: '/wishlist', icon: <LabelOutlined /> },
+    { name: 'Gestion Financiamiento', route: '/financiamiento', icon: <LabelOutlined /> },
+    { name: 'Gestion de Becas', route: '/becas', icon: <LabelOutlined /> },
   ];
   
 
@@ -187,18 +185,8 @@ const NavBar = ({ children, themeSwitch }) => {
             <MenuIcon />
           </IconButton>
           <ResponsiveAppBar></ResponsiveAppBar>
-          {/* {themeSwitch} Agrega esto al final para que se coloque al margen derecho */}
-          <FormControlLabel
-            control={
-              <Switch
-                checked={isDarkTheme}
-                onChange={toggleTheme}
-                icon={<Brightness7Icon />}
-                checkedIcon={<Brightness4Icon />}
-              />
-            }
-            label={isDarkTheme ? 'Tema Oscuro' : 'Tema Claro'}
-          />
+          
+          
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>
