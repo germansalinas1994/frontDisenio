@@ -48,11 +48,11 @@ function ResponsiveAppBar() {
   };
 
   return (
-    <Container style={{ maxWidth: '100%', height: '100px'}} maxWidth="xxl" >
+    <Container maxWidth="xl">
       <Toolbar disableGutters>
 
  
-        <h3 style={{ color: 'inherit', textDecoration: 'none', display: 'flex', marginTop: '20px' }}>
+        <h3 style={{ color: 'inherit', textDecoration: 'none' }}>
 
           <Typography
             variant="h5"
@@ -62,10 +62,8 @@ function ResponsiveAppBar() {
               mr: 2,
               display: { xs: 'none', md: 'flex' },
               fontFamily: 'roboto',
-              fontSize: 50,
-              // fontWith: '100px',
-              fontWeight: 500,
-              // letterSpacing: '.1rem',
+              fontWeight: 700,
+              letterSpacing: '.3rem',
               color: 'inherit',
               textDecoration: 'none',
             }}
@@ -79,7 +77,7 @@ function ResponsiveAppBar() {
 
         <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'flex-end' }}>
           <Tooltip title="Open settings">
-            <div style={{ display: 'flex', alignItems: 'center', marginTop: '0px' }}>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
               {/* Otros elementos si los hay */}
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 {/* en el src del avatar va la imagen del usuario, por ahora es una imagen de prueba, después va a ser la imagen del usuario logueado */}

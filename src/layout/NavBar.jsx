@@ -35,7 +35,7 @@ import {
   Label,
 } from '@mui/icons-material';
 import { Typography } from '@mui/material';
-import logo from '../../public/logo-utn.png'
+import logo from '../../public/images/logo-utn.png'
 
 
 const drawerWidth = 350; // Aumentar el ancho del drawer
