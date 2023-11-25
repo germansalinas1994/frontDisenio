@@ -11,16 +11,15 @@ import { DateRangePicker } from '@mui/x-date-pickers-pro/DateRangePicker';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 import dayjs from 'dayjs';
-import 'dayjs/locale/es'; 
+import 'dayjs/locale/en-gb';
 
-dayjs.locale('es'); // Configura dayjs con la localización española
 
 const ModalFormCategoria = ({ open, handleClose, ucts, tipoPids, universidades, onSubmit, register, errors, reset, onTipoPidChange, onUctChange, onUniversidadChange, fechaDesde, fechaHasta, onFechaDesdeChange, onFechaHastaChange
 }) => {
 
-
     const today = dayjs();
     const monthLater = today.add(1, 'month');
+    
 
 
 
@@ -165,10 +164,12 @@ const ModalFormCategoria = ({ open, handleClose, ucts, tipoPids, universidades, 
                             </Typography>
                         </FormControl>
                     </Box>
-                    <Box sx={{ display: 'flex', justifyContent: 'space-between', width: 1 }}>
+                      <Box sx={{ display: 'flex', justifyContent: 'space-between', width: 1 }}>
                     <DatePicker
+                        id="fecha-desde"
                         label="Fecha Desde"
                         value={fechaDesde || today}
+                        
                         onChange={onFechaDesdeChange}
                         renderInput={(params) => <TextField {...params} />}
                     />
@@ -180,13 +181,6 @@ const ModalFormCategoria = ({ open, handleClose, ucts, tipoPids, universidades, 
                     />
                 </Box>
 
-                    {/* <Box sx={{ width: 1 }}>
-                  
-                            <DatePicker label="Fecha Desde" onChange={onFechaDesdeChange} sx={{mr:4}} defaultValue={today}/>
-                            <DatePicker label="Fecha Hasta" onChange={onFechaHastaChange} defaultValue={monthLater} />
-                      
-
-                    </Box> */}
 
 
 

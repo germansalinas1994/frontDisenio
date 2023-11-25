@@ -14,6 +14,7 @@ import { set } from 'date-fns';
 
 
 const ListadoPid = () => {
+
     const { register, handleSubmit, formState: { errors }, reset, setValue } = useForm();
 
 
@@ -36,6 +37,7 @@ const ListadoPid = () => {
     useEffect(() => {
         try {
             showLoadingModal();
+            setFechasInicioFin();
             debugger;
             GetPid();
             GetUct();
@@ -46,6 +48,14 @@ const ListadoPid = () => {
             hideLoadingModal();
         }
     }, [reload])
+
+    const setFechasInicioFin = () => {
+        const today = dayjs();
+        const monthLater = today.add(1, 'month');
+        setValue("fechaDesde", today.format('DD/MM/YYYY'));
+        setValue("fechaHasta", monthLater.format('DD/MM/YYYY'));
+    }    
+
 
     const GetPid = async () => {
         try {
@@ -151,12 +161,8 @@ const ListadoPid = () => {
     const onSubmit = async (data) => {
 
         debugger;
-        setValue("fechaHasta", dayjs(data.fechaHasta).format('YYYY-MM-DD'));
-        setValue("fechaDesde", dayjs(data.fechaDesde).format('YYYY-MM-DD'));
 
-      
-
-
+    
         if (dayjs(data.fechaDesde).isAfter(data.fechaHasta)) {
             // Maneja el error aquí
             return;
@@ -243,6 +249,7 @@ const ListadoPid = () => {
     const handleFechaHastaChange = (newValue) => {
         const formattedDate = dayjs(newValue).format('DD/MM/YYYY'); // Formato para Argentina
         setValue("fechaHasta", formattedDate);
+
     };
 
 
