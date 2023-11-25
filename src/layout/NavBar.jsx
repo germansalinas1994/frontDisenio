@@ -20,17 +20,7 @@ import ResponsiveAppBar from './ResponsiveAppBar';
 import Collapse from '@mui/material/Collapse';
 import { useNavigate } from 'react-router-dom';
 import {
-  ShoppingBasket,
-  ShoppingCart,
-  Favorite,
-  History,
-  AccountCircle,
-  Help,
-  Store,
-  BarChart,
-  Storefront,
-  RateReview,
-  Settings,
+
   LabelOutlined,
   Label,
 } from '@mui/icons-material';
@@ -38,7 +28,7 @@ import { Typography } from '@mui/material';
 import logo from '../../public/images/logo-utn.png'
 
 
-const drawerWidth = 350; // Aumentar el ancho del drawer
+const drawerWidth = 300; // Aumentar el ancho del drawer
 
 
 
@@ -132,7 +122,7 @@ const NavBar = ({ children }) => {
       icon: <LabelOutlined />,
       submenu: [
         { name: 'PID', route: '/pid', icon: <LabelOutlined /> },
-        { name: 'INICIATIVA DE INVESTIGACION', route: '/iniciativadeinvestigacion', icon: <LabelOutlined /> },
+        { name: 'Iniciativa de Investigación', route: '/iniciativadeinvestigacion', icon: <LabelOutlined /> },
       ],
     },
 

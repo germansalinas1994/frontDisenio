@@ -185,17 +185,20 @@ const ModalFormCategoria = ({ open, handleClose, ucts, tipoPids, universidades, 
 
                     <Box sx={{ textAlign: 'center', mt: 3 }}>
                         <Button
-                            sx={{ mt: 1, mr: 2, width: '120px' }}
+                            sx={{ mt: 1, mr: 2, width: '120px',textTransform: 'none',
+                        }}
                             size="large"
                             variant="outlined"
                             color="primary"
+                            
                             onClick={handleClose}
                         >
                             Cancelar
                         </Button>
                         <Button
                             size="large"
-                            sx={{ mt: 1, width: '120px', color: 'white' }}
+                            sx={{ mt: 1, width: '120px', color: 'white',    textTransform: 'none',
+                        }}
                             variant="contained"
                             color="primary"
                             

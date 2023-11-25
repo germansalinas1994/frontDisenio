@@ -68,8 +68,8 @@ function ResponsiveAppBar() {
               textDecoration: 'none',
             }}
           >
-            PROYECTOS DE INVESTIGACION Y
-            DESARROLLO
+            Proyectos de Investigación y
+            Desarrollo
           </Typography>
         </h3>
 
