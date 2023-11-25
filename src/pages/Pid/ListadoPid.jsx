@@ -278,13 +278,14 @@ const ListadoPid = () => {
     setValue("fechaHasta", formattedDate);
   };
 
-  return (
-    <>
-      <Box>
-        <Typography variant="h4" component="h2" gutterBottom>
-          Listado de PID
-        </Typography>
-        <BotonAgregar onClick={handleOpenModal}></BotonAgregar>
+    return (
+        <>
+
+            <Box style={{position: 'relative'}}>
+                <Typography variant="h4" component="h2" gutterBottom style={{marginTop: '20px'}}>
+                    Listado de PID
+                </Typography>
+                <BotonAgregar onClick={handleOpenModal}></BotonAgregar>
 
         {/* Hago un componente para el modal, para que sea mas facil de leer */}
         {/* Hago un componente para el modal, para que sea mas facil de leer */}

@@ -35,7 +35,7 @@ import {
   Label,
 } from '@mui/icons-material';
 import { Typography } from '@mui/material';
-import logo from '../../public/logo-utn.png'
+import logo from '../../public/images/logo-utn.png'
 
 
 const drawerWidth = 350; // Aumentar el ancho del drawer
@@ -173,7 +173,7 @@ const NavBar = ({ children }) => {
 
         <DrawerHeader>
             <Link href="/" underline="none">
-              <img src={logo} alt="UTN Logo" style={{ maxHeight: '100%', maxWidth: '100%' }} />
+              <img src={logo} alt="UTN Logo" style={{ maxHeight: '80%', maxWidth: '80%' , marginTop: '10px', marginLeft: '20px' }} />
             </Link>
 
         </DrawerHeader>
