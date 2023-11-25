@@ -197,7 +197,7 @@ const NavBar = ({ children }) => {
                       {option.submenu.map((subItem) => (
                         <ListItem key={subItem.name} disablePadding sx={{ display: 'block', paddingLeft: 4 }}>
                           <ListItemButton onClick={() => handleNavigation(subItem.route)}>
-                            <ListItemIcon>{subItem.icon}</ListItemIcon>
+                            {/*<ListItemIcon>{subItem.icon}</ListItemIcon>*/}
                             <ListItemText primary={subItem.name} primaryTypographyProps={{ style: { fontWeight: 'bold' } }} />
                           </ListItemButton>
                         </ListItem>
