@@ -10,6 +10,7 @@ import ModalFormPID from '../../components/ModalFormPID';
 import Swal from 'sweetalert2'
 import dayjs from 'dayjs';
 import { set } from 'date-fns';
+import { da, de } from 'date-fns/locale';
 
 
 
@@ -25,8 +26,8 @@ const ListadoPid = () => {
     const [ucts, setUcts] = useState([]);
     const [tipoPids, setTipoPids] = useState([]);
     const [universidades, setUniversidades] = useState([]);
-    const [fechaDesde, setFechaDesde] = useState(null);
-    const [fechaHasta, setFechaHasta] = useState(null);
+    const [fechaDesde, setFechaDesde] = useState(dayjs());
+    const [fechaHasta, setFechaHasta] = useState(dayjs().add(1, 'month'));
     //codigo para mostrar u ocultar el modal de carga
     const { showLoadingModal, hideLoadingModal } = LoadingModal();
     //el reload es para que cuando se actualice la tabla se vuelva a llamar a la api
@@ -161,47 +162,105 @@ const ListadoPid = () => {
     const onSubmit = async (data) => {
 
         debugger;
+        //Oculto el modal
+        handleCloseModal();
 
-    
-        if (dayjs(data.fechaDesde).isAfter(data.fechaHasta)) {
-            // Maneja el error aquí
-            return;
-        }
 
-        try {
-            showLoadingModal();
-            //si esta seguro, elimino la categoria
-            const response = await axios.post(apiLocalKey + '/pid', data);
-            //muestro el msj de exito
-            Swal.fire({
-                position: 'center',
-                icon: 'success',
-                allowOutsideClick: false,
-                title: 'PID agregado correctamente',
-                showConfirmButton: true,
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    //aca deberia recargar el componente para que se vea la nueva categoria
-                    //Revierte el valor de reload para que se vuelva a ejecutar el useEffect
-                    //Cada vez que se cambia el valor de reload, se ejecuta el useEffect
-                    setReload(prev => !prev);
-                    hideLoadingModal();
+        setValue("fechaHasta", dayjs(data.fechaHasta).format('DD/MM/YYYY'));
+        setValue("fechaDesde", dayjs(data.fechaDesde).format('DD/MM/YYYY'));
 
-                }
-            })
-        } catch (error) {
-            hideLoadingModal();
+        let valida = await validarFechas(data.fechaDesde, data.fechaHasta);
+        debugger;
+        
+
+        if (!valida) {
+            
             Swal.fire({
                 position: 'center',
                 icon: 'error',
                 allowOutsideClick: false,
-                title: 'Hubo un error al agregar el PID',
+                title: 'Las fechas son obligatorias y debe ingresar una fecha de inicio menor a la fecha de fin',
                 showConfirmButton: true,
             });
+            setFechasInicioFin();
+            return;
         }
+        else{
+            try {
+                showLoadingModal();
+                //si esta seguro, elimino la categoria
+                const response = await axios.post(apiLocalKey + '/pid', data);
+                //muestro el msj de exito
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    allowOutsideClick: false,
+                    title: 'PID agregado correctamente',
+                    showConfirmButton: true,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        //aca deberia recargar el componente para que se vea la nueva categoria
+                        //Revierte el valor de reload para que se vuelva a ejecutar el useEffect
+                        //Cada vez que se cambia el valor de reload, se ejecuta el useEffect
+                        setReload(prev => !prev);
+                        hideLoadingModal();
+                        setFechasInicioFin();
+    
+                    }
+                })
+            } catch (error) {
+                hideLoadingModal();
+                Swal.fire({
+                    position: 'center',
+                    icon: 'error',
+                    allowOutsideClick: false,
+                    title: 'Hubo un error al agregar el PID',
+                    showConfirmButton: true,
+                });
+                setFechasInicioFin();
+            }
+
+        }
+
     }
 
+    // const validarFechas = async (fechaDesde, fechaHasta) => {
+    //     let valida = true;
 
+    //     if(fechaDesde == null || fechaDesde == "Invalid Date" || fechaDesde == "" || fechaHasta == null || fechaHasta == "Invalid Date" || fechaHasta == ""){
+    //         valida = false;
+    //         return valida;
+    //     }
+
+    //     //valido que la fecha de inicio sea menor a la fecha de fin
+    //     if (dayjs(fechaDesde).isAfter(fechaHasta)) {
+    //         valida = false;
+    //     }
+    //     return valida;
+    // }
+
+
+
+    const validarFechas = async (fechaDesde, fechaHasta) => {
+        let valida = true;
+
+        // Parsear las fechas en el formato DD/MM/YYYY
+        const parsedFechaDesde = dayjs(fechaDesde, 'DD/MM/YYYY');
+        const parsedFechaHasta = dayjs(fechaHasta, 'DD/MM/YYYY');
+    
+        // Verificar si alguna de las fechas es inválida después del parseo
+        if (!parsedFechaDesde.isValid() || !parsedFechaHasta.isValid()) {
+            valida = false;
+            return valida;
+        }
+    
+        // Verificar que la fecha de inicio sea menor o igual a la fecha de fin
+        if (parsedFechaDesde.isAfter(parsedFechaHasta)) {
+            valida = false;
+        }
+    
+        return valida;
+    }
 
 
 
