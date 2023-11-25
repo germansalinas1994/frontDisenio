@@ -17,8 +17,8 @@ import 'dayjs/locale/en-gb';
 const ModalFormCategoria = ({ open, handleClose, ucts, tipoPids, universidades, onSubmit, register, errors, reset, onTipoPidChange, onUctChange, onUniversidadChange, fechaDesde, fechaHasta, onFechaDesdeChange, onFechaHastaChange
 }) => {
 
-    const today = dayjs();
-    const monthLater = today.add(1, 'month');
+    // const today = dayjs();
+    // const monthLater = today.add(1, 'month');
     
 
 
@@ -166,16 +166,15 @@ const ModalFormCategoria = ({ open, handleClose, ucts, tipoPids, universidades, 
                     </Box>
                       <Box sx={{ display: 'flex', justifyContent: 'space-between', width: 1 }}>
                     <DatePicker
-                        id="fecha-desde"
                         label="Fecha Desde"
-                        value={fechaDesde || today}
+                        value={fechaDesde}
                         
                         onChange={onFechaDesdeChange}
                         renderInput={(params) => <TextField {...params} />}
                     />
                     <DatePicker
                         label="Fecha Hasta"
-                        value={fechaHasta || monthLater}
+                        value={fechaHasta}
                         onChange={onFechaHastaChange}
                         renderInput={(params) => <TextField {...params} />}
                     />
