@@ -1,23 +1,54 @@
 import * as React from 'react';
-import {Box,Grid} from '@mui/material';
+import { Box, Grid } from '@mui/material';
 import { DataGrid, GridToolbar } from '@mui/x-data-grid';
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/DeleteOutlined';
 import { GridActionsCellItem } from '@mui/x-data-grid';
 import Typography from '@mui/material/Typography';
+import { format } from 'date-fns';
 
-const TablaPid = ({ pids}) => {
+
+const TablaPid = ({ pids, onDelete }) => {
+
+
+  const formatDate = (date) => {
+    return date ? format(new Date(date), 'dd/MM/yyyy') : '';
+  };
+
   const myColumns = [
-    { field: 'denominacion', headerName: 'Denominación', width: 500 },
-    { field: 'universidadNombre', headerName: 'Nombre de la Universidad', width: 200,
-    valueGetter: (params) => {
+    { field: 'denominacion', headerName: 'Denominación', width: 150 },
+    {
+      field: 'universidadNombre', headerName: 'Nombre de la Universidad', width: 200,
+      valueGetter: (params) => {
         return params.row.universidad?.nombre || '';
-    }},
-    {field:'tipoPidCodigo',headerName:'Tipo de PID',width:200,
-    valueGetter: (params) => {
+      }
+    },
+    {
+      field: 'uctDenominacion', headerName: 'UCT', width: 400,
+      valueGetter: (params) => {
+        return params.row.uct?.denominacion || '';
+      }
+    },
+    {
+      field: 'tipoPidCodigo', headerName: 'Tipo de PID', width: 150,
+      valueGetter: (params) => {
         return params.row.tipoPid?.codigo || '';
-    }},
+      }
+    },
+    {
+      field: 'fechaDesde',
+      headerName: 'Fecha Inicio',
+      width: 150,
+      valueGetter: (params) => formatDate(params.row.fechaDesde),
+    },
+    {
+      field: 'fechaHasta',
+      headerName: 'Fecha Fin',
+      width: 150,
+      valueGetter: (params) => formatDate(params.row.fechaHasta),
+    },
+
     {
       field: 'actions',
       type: 'actions',
@@ -38,7 +69,7 @@ const TablaPid = ({ pids}) => {
             icon={<DeleteIcon />}
             label="Delete"
             color="inherit"
-            // onClick={() => onDelete(id)}  // Llamar a la función pasando el ID
+            onClick={() => onDelete(id)}  // Llamar a la función pasando el ID
 
           />,
         ];
@@ -53,41 +84,41 @@ const TablaPid = ({ pids}) => {
       </Box>
     );
   }
-    return (
+  return (
 
-        <DataGrid
-          sx={{
-            maxWidth:1,
-            maxHeight:1,
-            marginBottom: 20,
-             width: {xs:0.3,md:1} 
-            }}
-          initialState={{
-            pagination: { paginationModel: { pageSize: 15 } },
-          }}
-          pageSizeOptions={[15, 20, 30]}
-          rows={pids}
-          columns={myColumns}
-          getRowId={(row) => row.idPid}
-          disableDensitySelector
-          disableColumnSelector
-          disableColumnFilter
-          components={{ Toolbar: GridToolbar }}
-          componentsProps={{
-            toolbar: {
-              showQuickFilter: true,
-            },
-          }}
-          localeText={{
-            noRowsLabel: 'No hay filas',
-            footerPaginationRowsPerPage: 'Filas por página:',
-            footerPaginationPage: 'Página:',
-            footerTotalRows: 'Total de filas:',
-            selectionFooter: (count) => `${count} filas seleccionadas`,
-          }}
-        />
-    );
-  }
+    <DataGrid
+      sx={{
+        maxWidth: 1,
+        maxHeight: 1,
+        marginBottom: 20,
+        width: { xs: 0.3, md: 1 }
+      }}
+      initialState={{
+        pagination: { paginationModel: { pageSize: 15 } },
+      }}
+      pageSizeOptions={[15, 20, 30]}
+      rows={pids}
+      columns={myColumns}
+      getRowId={(row) => row.idPid}
+      disableDensitySelector
+      disableColumnSelector
+      disableColumnFilter
+      components={{ Toolbar: GridToolbar }}
+      componentsProps={{
+        toolbar: {
+          showQuickFilter: true,
+        },
+      }}
+      localeText={{
+        noRowsLabel: 'No hay filas',
+        footerPaginationRowsPerPage: 'Filas por página:',
+        footerPaginationPage: 'Página:',
+        footerTotalRows: 'Total de filas:',
+        selectionFooter: (count) => `${count} filas seleccionadas`,
+      }}
+    />
+  );
+}
 
 
 export default TablaPid;

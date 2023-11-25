@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useContext } from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
@@ -10,17 +9,14 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import Link from '@mui/material/Link';
+
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import ResponsiveAppBar from './ResponsiveAppBar';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Brightness4Icon from '@mui/icons-material/Brightness4';
-import Brightness7Icon from '@mui/icons-material/Brightness7';
-import ThemeContext from './ThemeContext';
+
 import Collapse from '@mui/material/Collapse';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -38,10 +34,11 @@ import {
   LabelOutlined,
   Label,
 } from '@mui/icons-material';
+import { Typography } from '@mui/material';
+import logo from '../../public/logo-utn.png'
 
 
-const drawerWidth = 275;
-
+const drawerWidth = 350; // Aumentar el ancho del drawer
 
 
 
@@ -54,26 +51,16 @@ const openedMixin = (theme) => ({
   overflowX: 'hidden',
 });
 
-const closedMixin = (theme) => ({
-  transition: theme.transitions.create('width', {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  overflowX: 'hidden',
-  width: `calc(${theme.spacing(7)} + 1px)`,
-  [theme.breakpoints.up('sm')]: {
-    width: `calc(${theme.spacing(8)} + 1px)`,
-  },
-});
+
 
 const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
-  justifyContent: 'flex-end',
+  justifyContent: 'center',
   padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
   ...theme.mixins.toolbar,
 }));
+
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
@@ -93,22 +80,16 @@ const AppBar = styled(MuiAppBar, {
   }),
 }));
 
-const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
-  ({ theme, open }) => ({
-    width: drawerWidth,
-    flexShrink: 0,
-    whiteSpace: 'nowrap',
-    boxSizing: 'border-box',
-    ...(open && {
-      ...openedMixin(theme),
-      '& .MuiDrawer-paper': openedMixin(theme),
-    }),
-    ...(!open && {
-      ...closedMixin(theme),
-      '& .MuiDrawer-paper': closedMixin(theme),
-    }),
-  }),
-);
+const Drawer = styled(MuiDrawer, {
+  shouldForwardProp: (prop) => prop !== 'open',
+})(({ theme }) => ({
+  width: drawerWidth,
+  flexShrink: 0,
+  whiteSpace: 'nowrap',
+  boxSizing: 'border-box',
+  ...openedMixin(theme),
+  '& .MuiDrawer-paper': openedMixin(theme),
+}));
 
 
 
@@ -118,7 +99,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 const NavBar = ({ children }) => {
 
-  
+
   const navigate = useNavigate();
 
   const handleNavigation = (route) => {
@@ -137,12 +118,13 @@ const NavBar = ({ children }) => {
 
   const theme = useTheme();
 
-  const { isDarkTheme, toggleTheme } = useContext(ThemeContext);
 
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(true);
 
 
   // opciones de menu del cliente, armo un arreglo con el Nombre que muestra, la url a la que redirecciona y el icono que muestra
+
+
 
   const clientOptions = [
     {
@@ -153,11 +135,11 @@ const NavBar = ({ children }) => {
         { name: 'INICIATIVA DE INVESTIGACION', route: '/iniciativadeinvestigacion', icon: <LabelOutlined /> },
       ],
     },
-  
+
     { name: 'Gestion Financiamiento', route: '/financiamiento', icon: <LabelOutlined /> },
     { name: 'Gestion de Becas', route: '/becas', icon: <LabelOutlined /> },
   ];
-  
+
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -170,66 +152,64 @@ const NavBar = ({ children }) => {
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBar position="fixed" open={open}   sx={{backgroundColor:"#B4EAE9"}}>
+      <AppBar position="fixed" open={open} sx={{ backgroundColor: "#B4EAE9" }}>
         <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            sx={{
-              marginRight: 5,
-              ...(open && { display: 'none' }),
-            }}
-          >
-            <MenuIcon />
-          </IconButton>
           <ResponsiveAppBar></ResponsiveAppBar>
-          
-          
         </Toolbar>
       </AppBar>
-      <Drawer variant="permanent" open={open}>
+      <Drawer
+        variant="permanent"
+        sx={{
+          width: drawerWidth,
+          flexShrink: 0,
+          '& .MuiDrawer-paper': {
+            width: drawerWidth,
+            boxSizing: 'border-box',
+            backgroundColor: '#41B5AF' // Color de fondo aplicado aquí
+          }
+        }}
+      >
+        {/*Quiero hacer un link a home que sea el logo  */}
+
         <DrawerHeader>
-          <IconButton onClick={handleDrawerClose}>
-            {/* el theme direction es para que el icono de la flecha cambie de lado cuando se abre el menu */}
-            {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-          </IconButton>
+            <Link href="/" underline="none">
+              <img src={logo} alt="UTN Logo" style={{ maxHeight: '100%', maxWidth: '100%' }} />
+            </Link>
+
         </DrawerHeader>
-        
-        <List>
-        {clientOptions.map((option) => (
-          <React.Fragment key={option.name}>
-            <ListItem disablePadding sx={{ display: 'block' }}>
-              <ListItemButton onClick={option.name === 'Gestion de Proyectos' ? handleProyectosClick : () => handleNavigation(option.route)}>
-                <ListItemIcon>{option.icon}</ListItemIcon>
-                <ListItemText primary={option.name} sx={{ opacity: open ? 1 : 0}} primaryTypographyProps={{ style: { fontWeight: 'bold' } }} />
-              </ListItemButton>
-            </ListItem>
-              {option.name === 'Gestion de Proyectos' && option.submenu && (
-                <Collapse in={isSubmenuOpen} timeout="auto" unmountOnExit>
-                  <List sx={{ paddingLeft: 0 }}>
-                    {option.submenu.map((subItem) => (
-                      <ListItem
-                        key={subItem.name}
-                        disablePadding
-                        sx={{ display: 'block', paddingLeft: 2,  backgroundColor: '#B4EAE9' }}
-                      >
-                        <ListItemButton onClick={() => handleNavigation(subItem.route)} sx={{backgroundcolor: '#B4EAE9' }}>
-                          {/*<ListItemIcon>{subItem.icon}</ListItemIcon>*/}
-                          <ListItemText primary={subItem.name} sx={{ opacity: open ? 1 : 0}} primaryTypographyProps={{ style: { fontWeight: 'bold' } }} />
-                        </ListItemButton>
-                      </ListItem>
-                    ))}
-                  </List>
-                </Collapse>
-              )}
-            </React.Fragment>
-          ))}
-        </List>
-       
-        
-            
+
+
+        <Box sx={{ mt: 6 }}>
+          <List style={{ width: '100%', textAlign: 'center' }}>
+            {clientOptions.map((option) => (
+              <React.Fragment key={option.name}>
+                <ListItem disablePadding sx={{ display: 'block', mt: 2 }}>
+                  <ListItemButton
+                    onClick={option.name === 'Gestion de Proyectos' ? handleProyectosClick : () => handleNavigation(option.route)}
+                  >
+                    <ListItemIcon>{option.icon}</ListItemIcon>
+                    <ListItemText primary={option.name} primaryTypographyProps={{ style: { fontWeight: 'bold' } }} />
+                  </ListItemButton>
+                </ListItem>
+                {option.name === 'Gestion de Proyectos' && option.submenu && (
+                  <Collapse in={isSubmenuOpen} timeout="auto" unmountOnExit>
+                    <List component="div" disablePadding>
+                      {option.submenu.map((subItem) => (
+                        <ListItem key={subItem.name} disablePadding sx={{ display: 'block', paddingLeft: 4 }}>
+                          <ListItemButton onClick={() => handleNavigation(subItem.route)}>
+                            <ListItemIcon>{subItem.icon}</ListItemIcon>
+                            <ListItemText primary={subItem.name} primaryTypographyProps={{ style: { fontWeight: 'bold' } }} />
+                          </ListItemButton>
+                        </ListItem>
+                      ))}
+                    </List>
+                  </Collapse>
+                )}
+              </React.Fragment>
+            ))}
+          </List>
+        </Box>
+
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />

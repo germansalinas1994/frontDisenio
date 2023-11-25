@@ -39,9 +39,7 @@ function ResponsiveAppBar() {
   };
 
 
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
+
 
 
 
@@ -53,16 +51,8 @@ function ResponsiveAppBar() {
     <Container maxWidth="xl">
       <Toolbar disableGutters>
 
-        {/* Aca esta el logo 
-        <Link to={'/'} style={{ color: 'inherit', textDecoration: 'none' }}>
-          <PinterestIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-        </Link>
-        src= "https://www.frp.utn.edu.ar/info2/wp-content/uploads/2018/08/utn-nacional.jpg"
-        */}
-
-        {/* esto es el texto del logo */}
-        {/* el boton me tiene que llevar a la pagina de inicio */}
-        <Link to={'/'} style={{ color: 'inherit', textDecoration: 'none' }}>
+ 
+        <h3 style={{ color: 'inherit', textDecoration: 'none' }}>
 
           <Typography
             variant="h5"
@@ -81,49 +71,9 @@ function ResponsiveAppBar() {
             PROYECTOS DE INVESTIGACION Y
             DESARROLLO
           </Typography>
-        </Link>
+        </h3>
 
 
-        {/* este box es para el menu de navegacion si esta la pantalla contraida */}
-        <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-          <IconButton
-            size="large"
-            aria-label="account of current user"
-            aria-controls="menu-appbar"
-            aria-haspopup="true"
-            onClick={handleOpenNavMenu}
-            color="inherit"
-          >
-            <Typography sx={{ flexGrow: 1, display: { xs: 'flex' }, mr: 1 }}>
-              Menu
-            </Typography>
-            <MenuIcon />
-          </IconButton>
-
-          <Menu
-            id="menu-appbar"
-            anchorEl={anchorElNav}
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'left',
-            }}
-            keepMounted
-            transformOrigin={{
-              vertical: 'top',
-              horizontal: 'left',
-            }}
-            open={Boolean(anchorElNav)}
-            onClose={handleCloseNavMenu}
-            sx={{
-              display: { xs: 'block', md: 'none' },
-            }}
-          >
-
-          </Menu>
-        </Box>
-
-
-        {/* Este box es para el boton de login o para info del usuario */}
 
         <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'flex-end' }}>
           <Tooltip title="Open settings">
