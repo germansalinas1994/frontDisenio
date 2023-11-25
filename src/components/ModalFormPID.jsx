@@ -195,9 +195,10 @@ const ModalFormCategoria = ({ open, handleClose, ucts, tipoPids, universidades, 
                         </Button>
                         <Button
                             size="large"
-                            sx={{ mt: 1, width: '120px' }}
+                            sx={{ mt: 1, width: '120px', color: 'white' }}
                             variant="contained"
                             color="primary"
+                            
                             type="submit"
                         >
                             Guardar

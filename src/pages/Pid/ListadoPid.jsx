@@ -9,8 +9,8 @@ import { get, useForm } from "react-hook-form"
 import ModalFormPID from '../../components/ModalFormPID';
 import Swal from 'sweetalert2'
 import dayjs from 'dayjs';
-import { set } from 'date-fns';
-import { da, de } from 'date-fns/locale';
+import theme from '../../layout/theme.js';
+
 
 
 
@@ -44,6 +44,7 @@ const ListadoPid = () => {
             GetUct();
             GetTipoPid();
             GetUniversidad();
+            hideLoadingModal();
         } catch (error) {
             console.log(error)
             hideLoadingModal();
@@ -62,7 +63,6 @@ const ListadoPid = () => {
         try {
             const res = await axios.get(apiLocalKey + '/pid')
             setPids(res.data.result.data)
-            hideLoadingModal();
             console.log(res.data.result.data)
         } catch (error) {
             console.log(error)
@@ -73,7 +73,6 @@ const ListadoPid = () => {
         try {
             const res = await axios.get(apiLocalKey + '/uct')
             setUcts(res.data.result.data)
-            hideLoadingModal();
             console.log(res.data.result.data)
         } catch (error) {
             console.log(error)
@@ -84,7 +83,6 @@ const ListadoPid = () => {
         try {
             const res = await axios.get(apiLocalKey + '/tipoPid')
             setTipoPids(res.data.result.data)
-            hideLoadingModal();
             console.log(res.data.result.data)
         } catch (error) {
             console.log(error)
@@ -95,7 +93,6 @@ const ListadoPid = () => {
         try {
             const res = await axios.get(apiLocalKey + '/universidad')
             setUniversidades(res.data.result.data)
-            hideLoadingModal();
             console.log(res.data.result.data)
         } catch (error) {
             console.log(error)
@@ -119,8 +116,9 @@ const ListadoPid = () => {
                 allowOutsideClick: false,
                 reverseButtons: true, //invierte la ubicacion de los botones confirmar y cancelar
 
-                confirmButtonColor: '#D32F2F',
-                cancelButtonColor: '#6E8EA7',
+                confirmButtonColor: theme.palette.secondary.main,
+                cancelButtonColor: theme.palette.primary.main,
+                
                 confirmButtonText: 'Confirmar',
                 cancelButtonText: 'Cancelar'
             }).then(async (result) => {
@@ -223,22 +221,6 @@ const ListadoPid = () => {
         }
 
     }
-
-    // const validarFechas = async (fechaDesde, fechaHasta) => {
-    //     let valida = true;
-
-    //     if(fechaDesde == null || fechaDesde == "Invalid Date" || fechaDesde == "" || fechaHasta == null || fechaHasta == "Invalid Date" || fechaHasta == ""){
-    //         valida = false;
-    //         return valida;
-    //     }
-
-    //     //valido que la fecha de inicio sea menor a la fecha de fin
-    //     if (dayjs(fechaDesde).isAfter(fechaHasta)) {
-    //         valida = false;
-    //     }
-    //     return valida;
-    // }
-
 
 
     const validarFechas = async (fechaDesde, fechaHasta) => {

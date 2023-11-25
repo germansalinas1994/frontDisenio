@@ -18,6 +18,7 @@ sx={{
     fontSize: '1.0em',
     minWidth: '40px',
     height: '40px',
+    color: 'white',
 }}
 >
 <PlusIcon />
