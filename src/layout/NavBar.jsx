@@ -173,7 +173,7 @@ const NavBar = ({ children }) => {
 
         <DrawerHeader>
             <Link href="/" underline="none">
-              <img src={logo} alt="UTN Logo" style={{ maxHeight: '100%', maxWidth: '100%' }} />
+              <img src={logo} alt="UTN Logo" style={{ maxHeight: '80%', maxWidth: '80%' , marginTop: '10px', marginLeft: '20px' }} />
             </Link>
 
         </DrawerHeader>

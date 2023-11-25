@@ -48,7 +48,7 @@ function ResponsiveAppBar() {
   };
 
   return (
-    <Container maxWidth="xl">
+    <Container maxWidth="xxl">
       <Toolbar disableGutters>
 
  
