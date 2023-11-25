@@ -14,7 +14,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>
       <Layout>
-        <App />
+        <App/>
       </Layout>
     </BrowserRouter>
   </React.StrictMode>,

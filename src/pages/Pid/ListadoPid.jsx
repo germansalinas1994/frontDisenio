@@ -258,8 +258,8 @@ const ListadoPid = () => {
     return (
         <>
 
-            <Box >
-                <Typography variant="h4" component="h2" gutterBottom>
+            <Box style={{position: 'relative'}}>
+                <Typography variant="h4" component="h2" gutterBottom style={{marginTop: '20px'}}>
                     Listado de PID
                 </Typography>
                 <BotonAgregar onClick={handleOpenModal}></BotonAgregar>

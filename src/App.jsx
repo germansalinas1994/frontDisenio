@@ -15,7 +15,7 @@ function App() {
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}  adapterLocale={es} >
-      <AppRouter />
+      <AppRouter/>  
     </LocalizationProvider>
 
   )
