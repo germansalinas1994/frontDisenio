@@ -2,12 +2,8 @@
 
 import { Box, Typography, TextField, Button, Modal } from "@mui/material";
 import { Select, MenuItem, InputLabel } from '@mui/material';
-import { useState } from "react";
 import FormControl from '@mui/material/FormControl';
-import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
-import { LocalizationProvider } from '@mui/x-date-pickers-pro';
-import { AdapterDayjs } from '@mui/x-date-pickers-pro/AdapterDayjs';
-import { DateRangePicker } from '@mui/x-date-pickers-pro/DateRangePicker';
+
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 import dayjs from 'dayjs';
@@ -17,9 +13,6 @@ import CloseIcon from '@mui/icons-material/Close';
 
 
 const ModalFormPID = ({ open, handleClose, ucts, tipoPids, universidades, onSubmit, register, errors, reset, onTipoPidChange, onUctChange, onUniversidadChange, fechaDesde, fechaHasta, onFechaDesdeChange, onFechaHastaChange }) => {
-
-    // const today = dayjs();
-    // const monthLater = today.add(1, 'month');
 
 
 

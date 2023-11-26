@@ -16,11 +16,11 @@ const TablaPid = ({ pids, onDelete,detallePID }) => {
   };
 
   const myColumns = [
-    { field: "denominacion", headerName: "Denominación", width: 150 },
+    { field: "denominacion", headerName: "Denominación", width: 450 },
     {
       field: "universidadNombre",
-      headerName: "Nombre de la Universidad",
-      width: 200,
+      headerName: "Universidad",
+      width: 150,
       valueGetter: (params) => {
         return params.row.universidad?.nombre || "";
       },
@@ -28,15 +28,15 @@ const TablaPid = ({ pids, onDelete,detallePID }) => {
     {
       field: "uctDenominacion",
       headerName: "UCT",
-      width: 400,
+      width: 450,
       valueGetter: (params) => {
         return params.row.uct?.denominacion || "";
       },
     },
     {
       field: "tipoPidCodigo",
-      headerName: "Tipo de PID",
-      width: 150,
+      headerName: "Tipo PID",
+      width: 100,
       valueGetter: (params) => {
         return params.row.tipoPid?.codigo || "";
       },
@@ -44,13 +44,13 @@ const TablaPid = ({ pids, onDelete,detallePID }) => {
     {
       field: "fechaDesde",
       headerName: "Fecha Inicio",
-      width: 150,
+      width: 100,
       valueGetter: (params) => formatDate(params.row.fechaDesde),
     },
     {
       field: "fechaHasta",
       headerName: "Fecha Fin",
-      width: 150,
+      width: 100,
       valueGetter: (params) => formatDate(params.row.fechaHasta),
     },
 
@@ -58,7 +58,7 @@ const TablaPid = ({ pids, onDelete,detallePID }) => {
       field: "actions",
       type: "actions",
       headerName: "Acciones",
-      width: 200,
+      width: 100,
       cellClassName: "actions",
       //aca va id porque es el nombre de la columna de la tabla
       getActions: ({ id }) => {

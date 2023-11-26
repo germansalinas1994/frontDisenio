@@ -22,7 +22,11 @@ const ListadoPid = () => {
         formState: { errors },
         reset,
         setValue,
+        watch
     } = useForm();
+
+    const [isEditMode, setIsEditMode] = useState(false);
+
 
     const apiLocalKey = import.meta.env.VITE_APP_API_KEY;
     const [pids, setPids] = useState([]);
@@ -37,6 +41,7 @@ const ListadoPid = () => {
     const [reload, setReload] = useState(false);
     const [openModal, setOpenModal] = useState(false);
     const [openModalDetalle, setOpenModalDetalle] = useState(false);
+    const [pid, setPid] = useState(null);
 
     useEffect(() => {
         try {
@@ -54,6 +59,7 @@ const ListadoPid = () => {
         }
     }, [reload])
 
+
     const setFechasInicioFin = () => {
         const today = dayjs();
         const monthLater = today.add(1, "month");
@@ -62,11 +68,11 @@ const ListadoPid = () => {
 
     };
 
+
     const GetPid = async () => {
         try {
             const res = await axios.get(apiLocalKey + '/pid')
             setPids(res.data.result.data)
-            console.log(res.data.result.data)
         } catch (error) {
             console.log(error)
         }
@@ -76,7 +82,6 @@ const ListadoPid = () => {
         try {
             const res = await axios.get(apiLocalKey + '/uct')
             setUcts(res.data.result.data)
-            console.log(res.data.result.data)
         } catch (error) {
             console.log(error)
         }
@@ -87,7 +92,6 @@ const ListadoPid = () => {
         try {
             const res = await axios.get(apiLocalKey + '/tipoPid')
             setTipoPids(res.data.result.data)
-            console.log(res.data.result.data)
         } catch (error) {
             console.log(error)
         }
@@ -98,7 +102,6 @@ const ListadoPid = () => {
         try {
             const res = await axios.get(apiLocalKey + '/universidad')
             setUniversidades(res.data.result.data)
-            console.log(res.data.result.data)
         } catch (error) {
             console.log(error)
         }
@@ -241,12 +244,84 @@ const ListadoPid = () => {
         return valida;
     };
 
-    const handleDetallePID = async (id) => {
+
+    const toggleEditMode = () => {
         debugger;
+        setIsEditMode(prev => !prev);
+    };
+
+    const onSubmitEdit = async (data) => {
+        debugger;
+        //Oculto el modal
+        handleCloseModalDetalle();
+
+        setValue("fechaHasta", dayjs(data.fechaHasta).format("DD/MM/YYYY"));
+        setValue("fechaDesde", dayjs(data.fechaDesde).format("DD/MM/YYYY"));
+
+        let valida = await validarFechas(data.fechaDesde, data.fechaHasta);
+        debugger;
+
+        if (!valida) {
+            Swal.fire({
+                position: "center",
+                icon: "error",
+                allowOutsideClick: false,
+                title:
+                    "Las fechas son obligatorias y debe ingresar una fecha de inicio menor a la fecha de fin",
+                showConfirmButton: true,
+            });
+            setFechasInicioFin();
+            return;
+        } else {
+            try {
+                showLoadingModal();
+                //si esta seguro, elimino la categoria
+                const response = await axios.put(apiLocalKey + "/pid", data);
+                //muestro el msj de exito
+                Swal.fire({
+                    position: "center",
+                    icon: "success",
+                    allowOutsideClick: false,
+                    title: "PID editado correctamente",
+                    showConfirmButton: true,
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        //aca deberia recargar el componente para que se vea la nueva categoria
+                        //Revierte el valor de reload para que se vuelva a ejecutar el useEffect
+                        //Cada vez que se cambia el valor de reload, se ejecuta el useEffect
+                        setReload((prev) => !prev);
+                        hideLoadingModal();
+                        setFechasInicioFin();
+                    }
+                });
+            } catch (error) {
+                hideLoadingModal();
+                Swal.fire({
+                    position: "center",
+                    icon: "error",
+                    allowOutsideClick: false,
+                    title: "Hubo un error al agregar el PID",
+                    showConfirmButton: true,
+                });
+                setFechasInicioFin();
+            }
+        }
+    };
+
+
+
+    //Funciones para el modal de detalle de un PID
+
+    const handleDetallePID = async (id) => {
         try {
             showLoadingModal();
             const res = await axios.get(apiLocalKey + '/pid/' + id)
-            console.log(res.data.result.data)
+            setPid(res.data.result.data)
+            setValue("fechaDesde", dayjs(res.data.result.data.fechaDesde).format("DD/MM/YYYY"));
+            setValue("fechaHasta", dayjs(res.data.result.data.fechaHasta).format("DD/MM/YYYY"));
+            debugger;
+
+
             await hideLoadingModal();
             await setOpenModalDetalle(true);
         } catch (error) {
@@ -254,6 +329,32 @@ const ListadoPid = () => {
             hideLoadingModal();
         }
     }
+
+    const handleCloseModalDetalle = async (event, reason) => {
+        if (reason == 'backdropClick') {
+            return;
+        }
+        setIsEditMode(false);
+        reset({
+            denominacion: "",
+            director: "",
+            fechaDesde: dayjs().format("DD/MM/YYYY"),
+            fechaHasta: dayjs().add(1, "month").format("DD/MM/YYYY"),
+            tipoPid: "",
+            uct: "",
+            universidad: "",
+        });
+        setOpenModalDetalle(false);
+    };
+
+
+
+
+
+
+
+
+
 
 
 
@@ -283,11 +384,9 @@ const ListadoPid = () => {
         await setOpenModal(false);
     };
 
-    const handleCloseModalDetalle = async () => {
-        setOpenModalDetalle(false);
-    };
 
     const handleTipoPidChange = (event) => {
+        debugger;
         setValue("tipoPid", event.target.value, { shouldValidate: true });
     };
 
@@ -342,6 +441,7 @@ const ListadoPid = () => {
                 <ModalDetallePID
                     open={openModalDetalle}
                     handleClose={handleCloseModalDetalle}
+                    pid={pid}
                     ucts={ucts}
                     tipoPids={tipoPids}
                     universidades={universidades}
@@ -352,10 +452,13 @@ const ListadoPid = () => {
                     fechaHasta={fechaHasta}
                     onFechaDesdeChange={handleFechaDesdeChange}
                     onFechaHastaChange={handleFechaHastaChange}
-                    onSubmit={handleSubmit(onSubmit)}
+                    onSubmit={handleSubmit(onSubmitEdit)}
                     register={register}
                     errors={errors}
                     reset={reset}
+                    watch={watch}
+                    isEditMode={isEditMode}
+                    toggleEditMode={toggleEditMode}
                 />
 
 
