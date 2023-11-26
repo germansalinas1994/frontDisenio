@@ -7,15 +7,26 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import {BrowserRouter} from "react-router-dom";
 import Layout from './layout/Layout.jsx';
+import { Auth0Provider } from '@auth0/auth0-react';
+
+
+
 
 import { CssBaseline } from '@mui/material';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <BrowserRouter>
-      <Layout>
-        <App/>
-      </Layout>
-    </BrowserRouter>
+    <Auth0Provider
+          domain={import.meta.env.VITE_APP_AUTH0_DOMAIN}
+          clientId={import.meta.env.VITE_APP_AUTH0_CLIENT_ID}
+          redirectUri={window.location.origin}
+        >
+          <BrowserRouter>
+            <Layout>
+              <App/>
+            </Layout>
+          </BrowserRouter>
+    </Auth0Provider>
+
   </React.StrictMode>,
 )
