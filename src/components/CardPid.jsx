@@ -38,9 +38,15 @@ const CardPid = ({ pids }) => {
         );
     }
 
+    // Invertir el orden de los PIDs para mostrar los últimos cargados primero
+    const reversedPids = [...pids].reverse()
+
+    //Aca creo una variable para que en la pagina HOME se muestren solo los ultimos 3 pids cargados
+    const lastThreePids = reversedPids.slice(0, 3);
+
     return (
         <>
-            {pids.map((p) => (
+            {lastThreePids.map((p) => (
             <Grid item xs={12} sm={6} md={4} lg={3} key={p.idPid} mb={5}>
             <StyledCard>
                 <Card>
