@@ -16,7 +16,7 @@ const TablaPid = ({ pids, onDelete,detallePID }) => {
   };
 
   const myColumns = [
-    { field: "denominacion", headerName: "Denominación", width: 450 },
+    { field: "denominacion", headerName: "Denominación", width: 400 },
     {
       field: "universidadNombre",
       headerName: "Universidad",
@@ -28,7 +28,7 @@ const TablaPid = ({ pids, onDelete,detallePID }) => {
     {
       field: "uctDenominacion",
       headerName: "UCT",
-      width: 450,
+      width: 400,
       valueGetter: (params) => {
         return params.row.uct?.denominacion || "";
       },

@@ -11,6 +11,7 @@ import Swal from 'sweetalert2'
 import dayjs from 'dayjs';
 import theme from '../../layout/theme.js';
 import ModalDetallePID from '../../components/ModalDetallePID';
+import FilterListPID from '../../components/FilterListPID';
 
 
 
@@ -44,69 +45,29 @@ const ListadoPid = () => {
     const [pid, setPid] = useState(null);
 
     useEffect(() => {
-        try {
-            showLoadingModal();
-            setFechasInicioFin();
-            debugger;
-            GetPid();
-            GetUct();
-            GetTipoPid();
-            GetUniversidad();
-            hideLoadingModal();
-        } catch (error) {
-            console.log(error)
-            hideLoadingModal();
-        }
-    }, [reload])
+        const loadData = async () => {
+            try {
+                showLoadingModal();
+                const [pidsRes, uctsRes, tipoPidsRes, universidadesRes] = await Promise.all([
+                    axios.get(apiLocalKey + '/pid'),
+                    axios.get(apiLocalKey + '/uct'),
+                    axios.get(apiLocalKey + '/tipoPid'),
+                    axios.get(apiLocalKey + '/universidad')
+                ]);
 
+                setPids(pidsRes.data.result.data);
+                setUcts(uctsRes.data.result.data);
+                setTipoPids(tipoPidsRes.data.result.data);
+                setUniversidades(universidadesRes.data.result.data);
+            } catch (error) {
+                console.log(error);
+            } finally {
+                hideLoadingModal();
+            }
+        };
 
-    const setFechasInicioFin = () => {
-        const today = dayjs();
-        const monthLater = today.add(1, "month");
-        setValue("fechaDesde", today.format("DD/MM/YYYY"));
-        setValue("fechaHasta", monthLater.format("DD/MM/YYYY"));
-
-    };
-
-
-    const GetPid = async () => {
-        try {
-            const res = await axios.get(apiLocalKey + '/pid')
-            setPids(res.data.result.data)
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
-    const GetUct = async () => {
-        try {
-            const res = await axios.get(apiLocalKey + '/uct')
-            setUcts(res.data.result.data)
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
-
-    const GetTipoPid = async () => {
-        try {
-            const res = await axios.get(apiLocalKey + '/tipoPid')
-            setTipoPids(res.data.result.data)
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
-
-    const GetUniversidad = async () => {
-        try {
-            const res = await axios.get(apiLocalKey + '/universidad')
-            setUniversidades(res.data.result.data)
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
+        loadData();
+    }, [reload]);
 
     //funciones para ABM de pids
 
@@ -410,10 +371,18 @@ const ListadoPid = () => {
     return (
         <>
 
+
+
             <Box style={{ position: 'relative' }}>
-                <Typography variant="h4" component="h2" gutterBottom style={{ marginTop: '20px' }}>
+
+                <Typography variant="h4" component="h2" gutterBottom style={{ marginTop: '30px', marginBottom:'10px' }}>
                     Listado de PID
                 </Typography>
+
+
+                <FilterListPID tipoPids={tipoPids} ucts={ucts}/>
+
+
                 <BotonAgregar onClick={handleOpenModal}></BotonAgregar>
 
                 {/* Hago un componente para el modal, para que sea mas facil de leer */}
