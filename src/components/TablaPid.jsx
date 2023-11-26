@@ -10,7 +10,7 @@ import { format } from "date-fns";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import Tooltip from "@mui/material/Tooltip";
 
-const TablaPid = ({ pids, onDelete }) => {
+const TablaPid = ({ pids, onDelete,detallePID }) => {
   const formatDate = (date) => {
     return date ? format(new Date(date), "dd/MM/yyyy") : "";
   };
@@ -67,7 +67,7 @@ const TablaPid = ({ pids, onDelete }) => {
             <GridActionsCellItem
               icon={<VisibilityIcon />}
               label="Ver Detalle"
-              // onClick={() => onEdit(id)}  // Llamar a la función pasando el ID
+              onClick={() => detallePID(id)}  // Llamar a la función pasando el ID
               className="textPrimary"
               color="inherit"
             />

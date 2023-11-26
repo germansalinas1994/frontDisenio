@@ -2,25 +2,19 @@
 
 import { Box, Typography, TextField, Button, Modal } from "@mui/material";
 import { Select, MenuItem, InputLabel } from '@mui/material';
-import { useState } from "react";
 import FormControl from '@mui/material/FormControl';
-import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
-import { LocalizationProvider } from '@mui/x-date-pickers-pro';
-import { AdapterDayjs } from '@mui/x-date-pickers-pro/AdapterDayjs';
-import { DateRangePicker } from '@mui/x-date-pickers-pro/DateRangePicker';
+
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
-import dayjs from 'dayjs';
 import 'dayjs/locale/en-gb';
-import { IconButton } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
 
 
-const ModalFormPID = ({ open, handleClose, ucts, tipoPids, universidades, onSubmit, register, errors, reset, onTipoPidChange, onUctChange, onUniversidadChange, fechaDesde, fechaHasta, onFechaDesdeChange, onFechaHastaChange }) => {
+const ModalDetallePID = ({ open, handleClose, ucts, tipoPids, universidades, onSubmit, register, errors, reset, onTipoPidChange, onUctChange, onUniversidadChange, fechaDesde, fechaHasta, onFechaDesdeChange, onFechaHastaChange
+}) => {
 
     // const today = dayjs();
     // const monthLater = today.add(1, 'month');
-
+    
 
 
 
@@ -30,7 +24,6 @@ const ModalFormPID = ({ open, handleClose, ucts, tipoPids, universidades, onSubm
             aria-labelledby="modal-title"
             aria-describedby="modal-description"
             onClose={handleClose}
-            disableEscapeKeyDown={true} // Impide el cierre del modal al presionar la tecla Escape
         >
             <Box
                 sx={{
@@ -47,19 +40,8 @@ const ModalFormPID = ({ open, handleClose, ucts, tipoPids, universidades, onSubm
                 component="form"
                 onSubmit={onSubmit}
             >
-                <IconButton
-                    aria-label="cerrar"
-                    onClick={handleClose}
-                    sx={{
-                        position: 'absolute',
-                        right: 8,
-                        top: 8,
-                    }}
-                >
-                    <CloseIcon />
-                </IconButton>
-                <Typography id="modal-title" variant="h5" component="h2">
-                    Nuevo Proyecto
+                <Typography id="modal-title" variant="h6" component="h2">
+                    Agregar PID
                 </Typography>
                 <Box mt={3} mb={3}>
 
@@ -177,46 +159,44 @@ const ModalFormPID = ({ open, handleClose, ucts, tipoPids, universidades, onSubm
                             </Typography>
                         </FormControl>
                     </Box>
-                    <Box sx={{ display: 'flex', justifyContent: 'space-between', width: 1 }}>
-                        <DatePicker
-                            label="Fecha Desde"
-                            value={fechaDesde}
-
-                            onChange={onFechaDesdeChange}
-                            renderInput={(params) => <TextField {...params} />}
-                        />
-                        <DatePicker
-                            label="Fecha Hasta"
-                            value={fechaHasta}
-                            onChange={onFechaHastaChange}
-                            renderInput={(params) => <TextField {...params} />}
-                        />
-                    </Box>
+                      <Box sx={{ display: 'flex', justifyContent: 'space-between', width: 1 }}>
+                    <DatePicker
+                        label="Fecha Desde"
+                        value={fechaDesde}
+                        
+                        onChange={onFechaDesdeChange}
+                        renderInput={(params) => <TextField {...params} />}
+                    />
+                    <DatePicker
+                        label="Fecha Hasta"
+                        value={fechaHasta}
+                        onChange={onFechaHastaChange}
+                        renderInput={(params) => <TextField {...params} />}
+                    />
+                </Box>
 
 
 
 
                     <Box sx={{ textAlign: 'center', mt: 3 }}>
                         <Button
-                            sx={{
-                                mt: 1, mr: 2, width: '120px', textTransform: 'none',
-                            }}
+                            sx={{ mt: 1, mr: 2, width: '120px',textTransform: 'none',
+                        }}
                             size="large"
                             variant="outlined"
                             color="primary"
-
+                            
                             onClick={handleClose}
                         >
                             Cancelar
                         </Button>
                         <Button
                             size="large"
-                            sx={{
-                                mt: 1, width: '120px', color: 'white', textTransform: 'none',
-                            }}
+                            sx={{ mt: 1, width: '120px', color: 'white',    textTransform: 'none',
+                        }}
                             variant="contained"
                             color="primary"
-
+                            
                             type="submit"
                         >
                             Guardar
@@ -228,4 +208,4 @@ const ModalFormPID = ({ open, handleClose, ucts, tipoPids, universidades, onSubm
     );
 }
 
-export default ModalFormPID;
+export default ModalDetallePID;
