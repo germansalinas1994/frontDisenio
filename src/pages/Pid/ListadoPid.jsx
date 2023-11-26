@@ -277,10 +277,17 @@ const ListadoPid = () => {
         try {
             showLoadingModal();
             const res = await axios.get(apiLocalKey + '/pid/' + id)
-            setPid(res.data.result.data)
+            const pid = res.data.result.data;
+            setPid(res.data.result.data);
+
+            setPidValues(pid);
+            setValue("denominacion", res.data.result.data.denominacion);
+            setValue("director", res.data.result.data.director);
+            setValue("tipoPid", res.data.result.data.tipoPid.idTipoPid);
+            setValue("uct", res.data.result.data.uct.idUct);
+            setValue("universidad", res.data.result.data.universidad.idUniversidad);
             setValue("fechaDesde", dayjs(res.data.result.data.fechaDesde).format("DD/MM/YYYY"));
             setValue("fechaHasta", dayjs(res.data.result.data.fechaHasta).format("DD/MM/YYYY"));
-            debugger;
 
 
             await hideLoadingModal();
@@ -289,6 +296,10 @@ const ListadoPid = () => {
             console.log(error)
             hideLoadingModal();
         }
+    }
+
+    const setPidValues = async (pid) => {
+
     }
 
     const handleCloseModalDetalle = async (event, reason) => {

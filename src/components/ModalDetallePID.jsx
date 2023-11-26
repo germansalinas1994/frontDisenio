@@ -16,6 +16,7 @@ import EditIcon from '@mui/icons-material/Edit';
 const ModalDetallePID = ({ open, handleClose, pid, ucts, tipoPids, universidades, onSubmit, register, errors, reset, watch, onTipoPidChange, onUctChange, onUniversidadChange, fechaDesde, fechaHasta, onFechaDesdeChange, onFechaHastaChange, isEditMode, toggleEditMode }) => {
 
     useEffect(() => {
+        debugger;
         if (pid && open) {
             reset({
                 director: pid.director,
