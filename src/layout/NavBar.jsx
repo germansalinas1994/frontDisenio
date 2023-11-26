@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useContext } from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
@@ -10,37 +9,26 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import Link from '@mui/material/Link';
+
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import ResponsiveAppBar from './ResponsiveAppBar';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Switch from '@mui/material/Switch';
-import Brightness4Icon from '@mui/icons-material/Brightness4';
-import Brightness7Icon from '@mui/icons-material/Brightness7';
-import ThemeContext from './ThemeContext';
+
+import Collapse from '@mui/material/Collapse';
 import { useNavigate } from 'react-router-dom';
 import {
-  ShoppingBasket,
-  ShoppingCart,
-  Favorite,
-  History,
-  AccountCircle,
-  Help,
-  Store,
-  BarChart,
-  Storefront,
-  RateReview,
-  Settings,
+
+  LabelOutlined,
+  Label,
 } from '@mui/icons-material';
+import { Typography } from '@mui/material';
+import logo from '../../public/images/logo-utn.png'
 
 
-
-const drawerWidth = 240;
-
+const drawerWidth = 300; // Aumentar el ancho del drawer
 
 
 
@@ -53,26 +41,16 @@ const openedMixin = (theme) => ({
   overflowX: 'hidden',
 });
 
-const closedMixin = (theme) => ({
-  transition: theme.transitions.create('width', {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  overflowX: 'hidden',
-  width: `calc(${theme.spacing(7)} + 1px)`,
-  [theme.breakpoints.up('sm')]: {
-    width: `calc(${theme.spacing(8)} + 1px)`,
-  },
-});
+
 
 const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
-  justifyContent: 'flex-end',
+  justifyContent: 'center',
   padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
   ...theme.mixins.toolbar,
 }));
+
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
@@ -92,22 +70,16 @@ const AppBar = styled(MuiAppBar, {
   }),
 }));
 
-const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
-  ({ theme, open }) => ({
-    width: drawerWidth,
-    flexShrink: 0,
-    whiteSpace: 'nowrap',
-    boxSizing: 'border-box',
-    ...(open && {
-      ...openedMixin(theme),
-      '& .MuiDrawer-paper': openedMixin(theme),
-    }),
-    ...(!open && {
-      ...closedMixin(theme),
-      '& .MuiDrawer-paper': closedMixin(theme),
-    }),
-  }),
-);
+const Drawer = styled(MuiDrawer, {
+  shouldForwardProp: (prop) => prop !== 'open',
+})(({ theme }) => ({
+  width: drawerWidth,
+  flexShrink: 0,
+  whiteSpace: 'nowrap',
+  boxSizing: 'border-box',
+  ...openedMixin(theme),
+  '& .MuiDrawer-paper': openedMixin(theme),
+}));
 
 
 
@@ -115,7 +87,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 //componente que se encarga de mostrar el menu lateral
 
 
-const NavBar = ({ children, themeSwitch }) => {
+const NavBar = ({ children }) => {
 
 
   const navigate = useNavigate();
@@ -126,32 +98,36 @@ const NavBar = ({ children, themeSwitch }) => {
     //este metodo es para cerrar el menu cuando se hace click en un item
     // handleDrawerClose();
   }
+  // Agrega el estado local para rastrear si el submenú está abierto o cerrado
+  const [isSubmenuOpen, setSubmenuOpen] = React.useState(false);
+
+  // Función para manejar el clic en "Gestión de Proyectos"
+  const handleProyectosClick = () => {
+    setSubmenuOpen(!isSubmenuOpen);
+  };
 
   const theme = useTheme();
 
-  const { isDarkTheme, toggleTheme } = useContext(ThemeContext);
 
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(true);
 
 
   // opciones de menu del cliente, armo un arreglo con el Nombre que muestra, la url a la que redirecciona y el icono que muestra
-  const clientOptions = [
-    { name: 'Pedidos', route: '/orders', icon: <ShoppingBasket /> },
-    { name: 'Carrito', route: '/cart', icon: <ShoppingCart /> },
-    { name: 'Favoritos', route: '/wishlist', icon: <Favorite /> },
-    { name: 'Historial de Pedidos', route: '/order-history', icon: <History /> },
-    { name: 'Mi Cuenta', route: '/account', icon: <AccountCircle /> },
-    { name: 'Ayuda y Soporte', route: '/help', icon: <Help /> },
-  ];
 
-  // opciones de menu del proveedor, armo un arreglo con el Nombre que muestra, la url a la que redirecciona y el icono que muestra
-  const providerOptions = [
-    { name: 'Gestión de Productos', route: '/manage-products', icon: <Store /> },
-    { name: 'Estadísticas de Ventas', route: '/sales-analytics', icon: <BarChart /> },
-    { name: 'Inventario', route: '/inventory', icon: <Storefront /> },
-    { name: 'Valoraciones', route: '/reviews', icon: <RateReview /> },
-    { name: 'Ayuda y Soporte', route: '/help', icon: <Help /> },
-    { name: 'Configuración', route: '/settings', icon: <Settings /> },
+
+
+  const clientOptions = [
+    {
+      name: 'Gestion de Proyectos',
+      icon: <LabelOutlined />,
+      submenu: [
+        { name: 'PID', route: '/pid', icon: <LabelOutlined /> },
+        { name: 'Iniciativa de Investigación', route: '/iniciativadeinvestigacion', icon: <LabelOutlined /> },
+      ],
+    },
+
+    { name: 'Gestion Financiamiento', route: '/financiamiento', icon: <LabelOutlined /> },
+    { name: 'Gestion de Becas', route: '/becas', icon: <LabelOutlined /> },
   ];
 
 
@@ -166,69 +142,64 @@ const NavBar = ({ children, themeSwitch }) => {
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBar position="fixed" open={open}>
+      <AppBar position="fixed" open={open} sx={{ backgroundColor: "#B4EAE9" }}>
         <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            sx={{
-              marginRight: 5,
-              ...(open && { display: 'none' }),
-            }}
-          >
-            <MenuIcon />
-          </IconButton>
           <ResponsiveAppBar></ResponsiveAppBar>
-          {/* {themeSwitch} Agrega esto al final para que se coloque al margen derecho */}
-          <FormControlLabel
-            control={
-              <Switch
-                checked={isDarkTheme}
-                onChange={toggleTheme}
-                icon={<Brightness7Icon />}
-                checkedIcon={<Brightness4Icon />}
-              />
-            }
-            label={isDarkTheme ? 'Tema Oscuro' : 'Tema Claro'}
-          />
         </Toolbar>
       </AppBar>
-      <Drawer variant="permanent" open={open}>
-        <DrawerHeader>
-          <IconButton onClick={handleDrawerClose}>
-            {/* el theme direction es para que el icono de la flecha cambie de lado cuando se abre el menu */}
-            {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-          </IconButton>
-        </DrawerHeader>
-        <Divider />
-        <List>
-          {/* Recorro el arreglo de opciones de menu del cliente y por cada una creo un item de la lista */}
-          {clientOptions.map((option) => (
-            <ListItem key={option.name} disablePadding sx={{ display: 'block' }}>
-              <ListItemButton onClick={() => handleNavigation(option.route)}>
-                <ListItemIcon>{option.icon}</ListItemIcon>
-                <ListItemText primary={option.name} sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
-        {/* El divider me separa las opciones de menu del cliente de las del proveedor */}
-        <Divider />
-        <List>
-          {/* Recorro el arreglo de opciones de menu del proveedor y por cada una creo un item de la lista */}
-          {providerOptions.map((option) => (
-            <ListItem key={option.name} disablePadding sx={{ display: 'block' }}>
-              <ListItemButton onClick={() => handleNavigation(option.route)}>
-                <ListItemIcon>{option.icon}</ListItemIcon>
-                <ListItemText primary={option.name} sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
+      <Drawer
+        variant="permanent"
+        sx={{
+          width: drawerWidth,
+          flexShrink: 0,
+          '& .MuiDrawer-paper': {
+            width: drawerWidth,
+            boxSizing: 'border-box',
+            backgroundColor: '#41B5AF' // Color de fondo aplicado aquí
+          }
+        }}
+      >
+        {/*Quiero hacer un link a home que sea el logo  */}
 
-    
+        <DrawerHeader>
+            <Link href="/" underline="none">
+              <img src={logo} alt="UTN Logo" style={{ maxHeight: '80%', maxWidth: '80%' , marginTop: '10px', marginLeft: '20px' }} />
+            </Link>
+
+        </DrawerHeader>
+
+
+        <Box sx={{ mt: 6 }}>
+          <List style={{ width: '100%', textAlign: 'center' }}>
+            {clientOptions.map((option) => (
+              <React.Fragment key={option.name}>
+                <ListItem disablePadding sx={{ display: 'block', mt: 2 }}>
+                  <ListItemButton
+                    onClick={option.name === 'Gestion de Proyectos' ? handleProyectosClick : () => handleNavigation(option.route)}
+                  >
+                    <ListItemIcon>{option.icon}</ListItemIcon>
+                    <ListItemText primary={option.name} primaryTypographyProps={{ style: { fontWeight: 'bold' } }} />
+                  </ListItemButton>
+                </ListItem>
+                {option.name === 'Gestion de Proyectos' && option.submenu && (
+                  <Collapse in={isSubmenuOpen} timeout="auto" unmountOnExit>
+                    <List component="div" disablePadding>
+                      {option.submenu.map((subItem) => (
+                        <ListItem key={subItem.name} disablePadding sx={{ display: 'block', paddingLeft: 4 }}>
+                          <ListItemButton onClick={() => handleNavigation(subItem.route)}>
+                            {/*<ListItemIcon>{subItem.icon}</ListItemIcon>*/}
+                            <ListItemText primary={subItem.name} primaryTypographyProps={{ style: { fontWeight: 'bold' } }} />
+                          </ListItemButton>
+                        </ListItem>
+                      ))}
+                    </List>
+                  </Collapse>
+                )}
+              </React.Fragment>
+            ))}
+          </List>
+        </Box>
+
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />

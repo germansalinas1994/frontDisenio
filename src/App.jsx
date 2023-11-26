@@ -1,22 +1,22 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import axios from 'axios'
-import Button from "@mui/material/Button";
-import Container from "@mui/material/Container";
+
 import 'animate.css'
-import Home from './pages/Home'
+
 import AppRouter from './router/AppRouter';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import es from 'dayjs/locale/es';
 
 
-// import './css/App.css'
+
 
 function App() {
 
 
 
   return (
-    <AppRouter />
+    <LocalizationProvider dateAdapter={AdapterDayjs}  adapterLocale={es} >
+      <AppRouter/>  
+    </LocalizationProvider>
 
   )
 }
