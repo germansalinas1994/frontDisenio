@@ -30,7 +30,6 @@ const ModalDetallePID = ({ open, handleClose, pid, ucts, tipoPids, universidades
         }
     }, [pid, open, reset]);
 
-    console.log(pid);
 
     return (
         <Modal

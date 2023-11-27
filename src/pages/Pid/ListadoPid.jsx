@@ -148,7 +148,6 @@ const ListadoPid = () => {
 
 
     const onSubmit = async (data) => {
-        debugger;
         //Oculto el modal
         handleCloseModal();
 
@@ -156,7 +155,6 @@ const ListadoPid = () => {
         setValue("fechaDesde", dayjs(data.fechaDesde).format("DD/MM/YYYY"));
 
         let valida = await validarFechas(data.fechaDesde, data.fechaHasta);
-        debugger;
 
         if (!valida) {
             Swal.fire({
@@ -229,12 +227,10 @@ const ListadoPid = () => {
 
 
     const toggleEditMode = () => {
-        debugger;
         setIsEditMode(prev => !prev);
     };
 
     const onSubmitEdit = async (data) => {
-        debugger;
         //Oculto el modal
         handleCloseModalDetalle();
 
@@ -242,7 +238,6 @@ const ListadoPid = () => {
         setValue("fechaDesde", dayjs(data.fechaDesde).format("DD/MM/YYYY"));
 
         let valida = await validarFechas(data.fechaDesde, data.fechaHasta);
-        debugger;
 
         if (!valida) {
             Swal.fire({
@@ -380,7 +375,6 @@ const ListadoPid = () => {
 
 
     const handleTipoPidChange = (event) => {
-        debugger;
         setValue("tipoPid", event.target.value, { shouldValidate: true });
     };
 
@@ -418,7 +412,6 @@ const ListadoPid = () => {
     };
 
     const LimpiarFiltros = () => {
-        debugger;
         setTipoPid("");
         setUct("");       
         GetAllPids(); 
@@ -446,7 +439,7 @@ const ListadoPid = () => {
         }
         try {
             showLoadingModal();
-            const response = await axios.post(apiLocalKey + '/buscarPid', FiltroPid, { headers: { 'Content-Type': 'application/json' } });
+            const response = await axios.post(apiLocalKey + '/buscarPid', FiltroPid);
             setPids(response.data.result.data);
             hideLoadingModal();
         } catch (error) {
