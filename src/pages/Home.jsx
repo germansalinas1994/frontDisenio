@@ -2,8 +2,8 @@ import { Card, Grid , Typography , Box} from '@mui/material';
 import LoadingModal from '../components/LoadingModal';
 import { useState, useEffect,useContext} from 'react';
 import axios from 'axios';
-import CardPid from '../components/CardPid';
-import GenericCard from '../components/GenericCard';
+import CardPid from '../components/Pid/Home/CardPid';
+import GenericCard from '../components/Pid/Home/GenericCard';
 import BotonVerMas from '../components/BotonVerMas';
 import { Link } from 'react-router-dom';
 

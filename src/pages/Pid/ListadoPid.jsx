@@ -2,16 +2,16 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Box, Grid, Typography } from '@mui/material';
-import TablaPid from '../../components/TablaPid';
+import TablaPid from '../../components/Pid/Listado/TablaPid.jsx';
 import BotonAgregar from '../../components/Agregar';
 import LoadingModal from '../../components/LoadingModal';
 import { get, useForm } from "react-hook-form"
-import ModalFormPID from '../../components/ModalFormPID';
+import ModalFormPID from '../../components/Pid/Listado/ModalFormPID.jsx';
 import Swal from 'sweetalert2'
 import dayjs from 'dayjs';
 import theme from '../../layout/theme.js';
-import ModalDetallePID from '../../components/ModalDetallePID';
-import FilterListPID from '../../components/FilterListPID';
+import ModalDetallePID from '../../components/Pid/Listado/ModalDetallePID.jsx';
+import FilterListPID from '../../components/Pid/Listado/FilterListPID.jsx';
 import { set } from 'date-fns';
 
 

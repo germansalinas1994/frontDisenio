@@ -1,6 +1,6 @@
 import { Card, CardActionArea, CardContent, CardMedia, Typography, Grid, Box} from "@mui/material";
 import { Link } from "react-router-dom";
-import pid from "../../public/images/pid.jpg"
+import pid from "../../../../public/images/pid.jpg"
 import styled from "@mui/material/styles/styled"
 import { shadows } from '@mui/system';
 

@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { Card } from '@mui/material'
 // import { ThemeContext } from '@emotion/react'
-import ThemeContext from '../Layout/ThemeContext'
+import ThemeContext from '../../../layout/ThemeContext'
 import { shadows } from '@mui/system';
 
 function GenericCard({ children }) {
