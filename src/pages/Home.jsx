@@ -22,9 +22,11 @@ const Home = () => {
             showLoadingModal();
 
             try {
-                const response = await axios.get(apiLocalKey + '/pid');
+                const response = await axios.get(apiLocalKey + '/ultimosPids');
                 setPids (response.data.result.data)
-                hideLoadingModal();
+                if(!isLoading){
+                    hideLoadingModal();
+                }
             } catch (error){
                 hideLoadingModal();
                 console.log(error);
@@ -47,7 +49,7 @@ const Home = () => {
                 </Link>
             )}
             <Typography variant="h3" sx={{ marginBottom: 2 , fontWeight:'300', marginLeft:'10px', fontFamily:'roboto', fontSize:'40px' }}>
-                PROYECTOS RECIENTES
+                Proyectos Recientes
             </Typography>     
             <GenericCard>
                 <Grid  container spacing={30} sx={{backgroundColor:'secondary'}}>
