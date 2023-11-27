@@ -50,8 +50,8 @@ const ListadoPid = () => {
 
     //funciones para el filtro 
 
-    const [tipoPid, setTipoPid] = useState("");
-    const [uct, setUct] = useState("");
+    const [tipoPid, setTipoPid] = useState(0);
+    const [uct, setUct] = useState(0);
 
 
 
@@ -231,6 +231,7 @@ const ListadoPid = () => {
     };
 
     const onSubmitEdit = async (data) => {
+        debugger;
         //Oculto el modal
         handleCloseModalDetalle();
 
@@ -408,13 +409,14 @@ const ListadoPid = () => {
     };
 
     const handleUctChangeFiltro = (event) => {
+        debugger;
         setUct(event.target.value);
     };
 
     const LimpiarFiltros = () => {
         setTipoPid("");
-        setUct("");       
-        GetAllPids(); 
+        setUct("");
+        GetAllPids();
     }
 
     const GetAllPids = async () => {
@@ -433,13 +435,16 @@ const ListadoPid = () => {
     const BuscarPids = async () => {
         //armo el objeto con los filtros
         debugger;
-        let FiltroPid = {
+        let filtro = {
             tipoPid: tipoPid,
             uct: uct
         }
+        
+
+
         try {
             showLoadingModal();
-            const response = await axios.post(apiLocalKey + '/buscarPid', FiltroPid);
+            const response = await axios.post(apiLocalKey + '/buscarPid', filtro);
             setPids(response.data.result.data);
             hideLoadingModal();
         } catch (error) {
@@ -465,14 +470,14 @@ const ListadoPid = () => {
 
             <Box style={{ position: 'relative' }}>
 
-                <Typography variant="h4" component="h2" gutterBottom style={{ marginTop: '30px', marginBottom:'10px' }}>
+                <Typography variant="h4" component="h2" gutterBottom style={{ marginTop: '30px', marginBottom: '10px' }}>
                     Listado de PID
                 </Typography>
 
 
 
-                <FilterListPID tipoPids={tipoPids} ucts={ucts} limpiar={LimpiarFiltros} uct={uct} tipoPid={tipoPid} changeTipoPid ={handleTipoPidChangeFiltro} changeUCT={handleUctChangeFiltro} buscar={BuscarPids} />
-                
+                <FilterListPID tipoPids={tipoPids} ucts={ucts} limpiar={LimpiarFiltros} uct={uct} tipoPid={tipoPid} changeTipoPid={handleTipoPidChangeFiltro} changeUCT={handleUctChangeFiltro} buscar={BuscarPids} />
+
 
                 <BotonAgregar onClick={handleOpenModal}></BotonAgregar>
 

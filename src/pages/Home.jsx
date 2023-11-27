@@ -14,15 +14,12 @@ const Home = () => {
 
 
     useEffect(()  => {
-        debugger;
         //Logica para obtener los pids
         const fetchPids = async () => { 
             showLoadingModal();
 
             try {
-                debugger;
                 const response = await axios.get(apiLocalKey + '/pid');
-                debugger;
                 setPids (response.data.result.data)
                 hideLoadingModal();
             } catch (error){

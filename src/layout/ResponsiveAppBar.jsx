@@ -5,10 +5,8 @@ import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
@@ -51,7 +49,7 @@ function ResponsiveAppBar() {
     <Container maxWidth="xl">
       <Toolbar disableGutters>
 
- 
+
         <h3 style={{ color: 'inherit', textDecoration: 'none' }}>
 
           <Typography
@@ -102,8 +100,12 @@ function ResponsiveAppBar() {
             onClose={handleCloseUserMenu}
           >
             {settings.map((setting) => (
-              <Link to={setting.route.toLowerCase()} style={{ color: 'inherit', textDecoration: 'none' }}>
-                <MenuItem key={setting.id} onClick={handleCloseUserMenu}>
+              <Link
+                key={setting.id} // Agregar prop key aquí
+                to={setting.route.toLowerCase()}
+                style={{ color: 'inherit', textDecoration: 'none' }}
+              >
+                <MenuItem onClick={handleCloseUserMenu}>
                   <Typography textAlign="center">{setting.name}</Typography>
                 </MenuItem>
               </Link>

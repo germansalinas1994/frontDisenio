@@ -36,7 +36,7 @@ const FilterListPID = ({ tipoPids, ucts, limpiar, tipoPid,uct, changeTipoPid, ch
 
                                 // onChange={onTipoPidChange}
                             >
-                                <MenuItem value="">Ninguno</MenuItem>
+                                <MenuItem value={0}>Ninguno</MenuItem>
                                 {tipoPids.map((tipoPid) => (
                                     <MenuItem key={tipoPid.idTipoPid} value={tipoPid.idTipoPid}>{tipoPid.descripcion}</MenuItem>
                                 ))}
@@ -58,7 +58,7 @@ const FilterListPID = ({ tipoPids, ucts, limpiar, tipoPid,uct, changeTipoPid, ch
                                 value={uct}
                                 onChange={changeUCT}
                             >
-                                <MenuItem value="">Ninguno</MenuItem>
+                                <MenuItem value={0}>Ninguno</MenuItem>
                                 {ucts.map((uct) => (
                                     <MenuItem key={uct.idUct} value={uct.idUct}>{uct.denominacion}</MenuItem>
                                 ))}
