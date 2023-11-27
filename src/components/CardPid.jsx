@@ -5,6 +5,13 @@ import styled from "@mui/material/styles/styled"
 import { shadows } from '@mui/system';
 
 
+const imagesArray = [
+    '../../public/images/pid.jpg',
+    '../../public/images/pid2.jpg',
+    '../../public/images/pid3.jpg',
+    '../../public/images/pid4.jpg',
+  ];
+
 const StyledCard = styled(Card)(({ theme }) => ({
     marginLeft: '120px',
     marginTop: '20px',
@@ -18,7 +25,7 @@ const StyledCard = styled(Card)(({ theme }) => ({
     // flexDirection: 'column',
     '&:hover': { boxShadow: '0 0 15px rgba(0, 0, 0, 0.3)' }
   }));
-  
+
   const StyledCardContent = styled(CardContent)(({ theme }) => ({
     display: 'flex',
     flexDirection: 'column',
@@ -35,6 +42,13 @@ const StyledCard = styled(Card)(({ theme }) => ({
 const CardPid = ({ pids }) => {
 
 
+    // Función para obtener un array aleatorio de imágenes sin repetició
+    const getRandomImages = () => {
+        const shuffledImages = [...imagesArray].sort(() => Math.random() - 0.5);
+        return shuffledImages.slice(0, pids.length); // Obtener tantas imágenes como PIDs
+    };
+    
+    const pidImages = getRandomImages();
 
     // Invertir el orden de los PIDs para mostrar los últimos cargados primero
     const reversedPids = [...pids].reverse()
@@ -54,7 +68,7 @@ const CardPid = ({ pids }) => {
                     width: "100%", // Asegura que ocupe todo el ancho de la pantalla
                 }}
             >
-                <Typography variant="h4" component="h2" sx={{ 
+                <Typography variant="h4" component="h2" sx={{
                     fontWeight: 'bold',
                     fontSize: '2rem', // Tamaño más grande para el texto
                     textAlign: 'center', // Centrar el texto
@@ -85,18 +99,26 @@ const CardPid = ({ pids }) => {
 
     return (
         <>
-            {lastThreePids.map((p) => (
+            {lastThreePids.map((p, index) => (
             <Grid item xs={12} sm={6} md={4} lg={3} key={p.idPid} mb={5}>
             <StyledCard>
                 <Card>
-                    <CardActionArea sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flexGrow: 1 }}>
-                    <CardMedia component="img" height="160" src={pid} alt="ejemplo" />
+                    <CardActionArea>
+                    {/* Mostrar imagen aleatoria en la CardMedia */}
+                    <CardMedia
+                        sx={{ width: '500px' }}
+                        component="img"
+                        height="160"
+                        width={'100%'}
+                        src={pidImages[index]} // Asignar una imagen diferente a cada PID
+                        alt="imagen aleatoria"
+                    />
                     <StyledCardContent>
                         <CardContent>
-                            <Typography variant="h5" align="left" sx={{ fontWeight: 'bold', mb: 1, textAlign: 'left' }}>
+                            <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 1 }}>
                             {p.denominacion}
                             </Typography>
-                            <Typography align="left" color="textSecondary" sx={{ fontSize: '1.0rem', textAlign: 'left' }}>
+                            <Typography  color="textSecondary" sx={{ fontSize: '1.0rem' }}>
                             {p.universidad.nombre}
                             </Typography>
                         </CardContent>
