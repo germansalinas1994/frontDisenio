@@ -413,24 +413,18 @@ const ListadoPid = () => {
         setUct(event.target.value);
     };
 
-    const LimpiarFiltros = () => {
-        setTipoPid("");
-        setUct("");
-        GetAllPids();
+    const LimpiarFiltros = async () => {
+        await setTipoPid(0);
+        await setUct(0);
     }
 
-    const GetAllPids = async () => {
-        try {
-            showLoadingModal();
-            const response = await axios.get(apiLocalKey + '/pid');
-            setPids(response.data.result.data);
-            hideLoadingModal();
+    useEffect(() => {
+        // Solo llamar a BuscarPids si ambos, tipoPid y uct, son 0
+        if (tipoPid === 0 && uct === 0) {
+            BuscarPids();
         }
-        catch (error) {
-            console.log(error);
-            hideLoadingModal();
-        }
-    }
+    }, [tipoPid, uct]); // Este efecto se ejecuta cada vez que tipoPid o uct cambian
+
 
     const BuscarPids = async () => {
         //armo el objeto con los filtros
@@ -439,7 +433,7 @@ const ListadoPid = () => {
             tipoPid: tipoPid,
             uct: uct
         }
-        
+
 
 
         try {
