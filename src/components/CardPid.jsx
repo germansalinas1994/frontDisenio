@@ -2,13 +2,18 @@ import { Card, CardActionArea, CardContent, CardMedia, Typography, Grid, Box} fr
 import { Link } from "react-router-dom";
 import pid from "../../public/images/pid.jpg"
 import styled from "@mui/material/styles/styled"
+import { shadows } from '@mui/system';
 
 
 const StyledCard = styled(Card)(({ theme }) => ({
-    margin: '10px',
+    marginLeft: '175px',
+    marginTop: '20px',
+    align: 'center',
     width: '100%',
     cursor: 'pointer',
+    boxShadow: '0 0 15px rgba(0, 0, 0, 0.1)', // Sombra de la tarjeta
     borderRadius: 5,
+    border: '2px solid black',
     display: 'flex',
     flexDirection: 'column',
     '&:hover': { boxShadow: '0 0 15px rgba(0, 0, 0, 0.3)' }

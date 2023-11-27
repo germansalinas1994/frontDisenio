@@ -3,6 +3,7 @@ import LoadingModal from '../components/LoadingModal';
 import { useState, useEffect,useContext} from 'react';
 import axios from 'axios';
 import CardPid from '../components/CardPid';
+import GenericCard from '../components/GenericCard';
 
 
 const Home = () => {
@@ -41,9 +42,11 @@ const Home = () => {
             <Typography variant="h3" sx={{ marginBottom: 2 , fontWeight:'300', marginLeft:'10px', fontFamily:'roboto', fontSize:'40px' }}>
                 PROYECTOS RECIENTES
             </Typography>
-            <Grid container spacing={2} justifyContent="left" sx={{display:'flex', maxWidth:1, backgroundColor:'secondary', mb:15}}>
-                <CardPid pids={pids} />
-            </Grid>
+            <GenericCard>
+                <Grid container spacing={2} justifyContent="left" sx={{display:'flex', maxWidth:1, backgroundColor:'secondary', mb:15}}>
+                    <CardPid pids={pids} />
+                </Grid>
+            </GenericCard>
         </Box>
     )
 }
