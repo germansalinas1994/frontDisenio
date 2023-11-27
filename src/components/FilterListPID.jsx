@@ -8,7 +8,7 @@ import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import Button from '@mui/material/Button';
 
 
-const FilterListPID = ({ tipoPids, ucts }) => {
+const FilterListPID = ({ tipoPids, ucts, limpiar, tipoPid,uct, changeTipoPid, changeUCT,buscar }) => {
 
     return (
         <Box sx={{ mt: 3, mb: 5 }}>
@@ -30,11 +30,13 @@ const FilterListPID = ({ tipoPids, ucts }) => {
                                 placeholder="Seleccione un tipo PID"
                                 id="tipo-pid-select"
                                 label="Tipo PID"
+                                value={tipoPid}
+                                onChange={changeTipoPid}
+
 
                                 // onChange={onTipoPidChange}
-                                defaultValue="" // Asegúrate de que el valor por defecto sea ""
                             >
-                                <MenuItem value="" disabled>Seleccione un tipo PID</MenuItem>
+                                <MenuItem value="">Ninguno</MenuItem>
                                 {tipoPids.map((tipoPid) => (
                                     <MenuItem key={tipoPid.idTipoPid} value={tipoPid.idTipoPid}>{tipoPid.descripcion}</MenuItem>
                                 ))}
@@ -53,9 +55,10 @@ const FilterListPID = ({ tipoPids, ucts }) => {
                                 placeholder="Seleccione una UCT"
                                 id="uct-select"
                                 label="UCT"
-                                defaultValue="" // Asegúrate de que el valor por defecto sea ""
+                                value={uct}
+                                onChange={changeUCT}
                             >
-                                <MenuItem value="" disabled>Seleccione una UCT</MenuItem>
+                                <MenuItem value="">Ninguno</MenuItem>
                                 {ucts.map((uct) => (
                                     <MenuItem key={uct.idUct} value={uct.idUct}>{uct.denominacion}</MenuItem>
                                 ))}
@@ -78,7 +81,7 @@ const FilterListPID = ({ tipoPids, ucts }) => {
                         variant="outlined"
                         color="primary"
 
-                        // onClick={handleClose}
+                        onClick={limpiar}
                     >
                         Limpiar 
                     </Button>
@@ -89,6 +92,7 @@ const FilterListPID = ({ tipoPids, ucts }) => {
                         }}
                         variant="contained"
                         color="primary"
+                        onClick={buscar}
 
                     >
                         Buscar

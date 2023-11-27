@@ -93,11 +93,11 @@ const TablaPid = ({ pids, onDelete,detallePID }) => {
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          height: "100vh",
+          height: "40vh",
         }}
       >
         <Typography variant="h5" sx={{ marginBottom: "20px" }}>
-          No se ha agregado ningún pid
+          No se ha encontrado ningún pid
         </Typography>
       </Box>
     );

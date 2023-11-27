@@ -12,6 +12,7 @@ import dayjs from 'dayjs';
 import theme from '../../layout/theme.js';
 import ModalDetallePID from '../../components/ModalDetallePID';
 import FilterListPID from '../../components/FilterListPID';
+import { set } from 'date-fns';
 
 
 
@@ -44,6 +45,18 @@ const ListadoPid = () => {
     const [openModalDetalle, setOpenModalDetalle] = useState(false);
     const [pid, setPid] = useState(null);
 
+
+
+
+    //funciones para el filtro 
+
+    const [tipoPid, setTipoPid] = useState("");
+    const [uct, setUct] = useState("");
+
+
+
+
+
     useEffect(() => {
         const loadData = async () => {
             try {
@@ -59,6 +72,7 @@ const ListadoPid = () => {
                 setUcts(uctsRes.data.result.data);
                 setTipoPids(tipoPidsRes.data.result.data);
                 setUniversidades(universidadesRes.data.result.data);
+                setFechasInicioFin();
             } catch (error) {
                 console.log(error);
             } finally {
@@ -124,6 +138,14 @@ const ListadoPid = () => {
             });
         }
     };
+
+    const setFechasInicioFin = () => {
+        setValue("fechaDesde", dayjs().format("DD/MM/YYYY"));
+        setValue("fechaHasta", dayjs().add(1, "month").format("DD/MM/YYYY"));
+        setFechaDesde(dayjs());
+        setFechaHasta(dayjs().add(1, "month"));
+    };
+
 
     const onSubmit = async (data) => {
         debugger;
@@ -379,10 +401,74 @@ const ListadoPid = () => {
         setValue("fechaHasta", formattedDate);
     };
 
+
+
+
+
+
+
+    //funciones para el filtro
+
+    const handleTipoPidChangeFiltro = (event) => {
+        setTipoPid(event.target.value);
+    };
+
+    const handleUctChangeFiltro = (event) => {
+        setUct(event.target.value);
+    };
+
+    const LimpiarFiltros = () => {
+        debugger;
+        setTipoPid("");
+        setUct("");       
+        GetAllPids(); 
+    }
+
+    const GetAllPids = async () => {
+        try {
+            showLoadingModal();
+            const response = await axios.get(apiLocalKey + '/pid');
+            setPids(response.data.result.data);
+            hideLoadingModal();
+        }
+        catch (error) {
+            console.log(error);
+            hideLoadingModal();
+        }
+    }
+
+    const BuscarPids = async () => {
+        //armo el objeto con los filtros
+        debugger;
+        let FiltroPid = {
+            tipoPid: tipoPid,
+            uct: uct
+        }
+        try {
+            showLoadingModal();
+            const response = await axios.post(apiLocalKey + '/buscarPid', FiltroPid, { headers: { 'Content-Type': 'application/json' } });
+            setPids(response.data.result.data);
+            hideLoadingModal();
+        } catch (error) {
+            console.log(error);
+            hideLoadingModal();
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
     return (
         <>
-
-
 
             <Box style={{ position: 'relative' }}>
 
@@ -391,8 +477,9 @@ const ListadoPid = () => {
                 </Typography>
 
 
-                <FilterListPID tipoPids={tipoPids} ucts={ucts}/>
 
+                <FilterListPID tipoPids={tipoPids} ucts={ucts} limpiar={LimpiarFiltros} uct={uct} tipoPid={tipoPid} changeTipoPid ={handleTipoPidChangeFiltro} changeUCT={handleUctChangeFiltro} buscar={BuscarPids} />
+                
 
                 <BotonAgregar onClick={handleOpenModal}></BotonAgregar>
 

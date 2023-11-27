@@ -14,7 +14,7 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { Link } from 'react-router-dom';
 import PinterestIcon from '@mui/icons-material/Pinterest';
-
+import logoutn from '../../public/images/UTN_logo.jpg'
 
 
 // Declaro un array de objetos con las propiedades id, name y route. 
@@ -22,7 +22,7 @@ import PinterestIcon from '@mui/icons-material/Pinterest';
 
 
 const settings = [
-  { id: 1, name: 'Logout', route: '/logout' }
+  { id: 1, name: 'Cerrar sesión', route: '/logout' }
 ]
 
 
@@ -76,12 +76,12 @@ function ResponsiveAppBar() {
 
 
         <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'flex-end' }}>
-          <Tooltip title="Open settings">
+          <Tooltip title="Cuenta">
             <div style={{ display: 'flex', alignItems: 'center' }}>
               {/* Otros elementos si los hay */}
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 {/* en el src del avatar va la imagen del usuario, por ahora es una imagen de prueba, después va a ser la imagen del usuario logueado */}
-                <Avatar alt="Remy Sharp" src="https://www.frp.utn.edu.ar/info2/wp-content/uploads/2018/08/utn-nacional.jpg" />
+                <Avatar alt="Remy Sharp" src={logoutn} />
               </IconButton>
             </div>
           </Tooltip>

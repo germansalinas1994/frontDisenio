@@ -10,7 +10,7 @@ const Home = () => {
     const apiLocalKey = import.meta.env.VITE_APP_API_KEY
     const [pids, setPids] = useState([]);
     //codigo para mostrar u ocultar el modal de carga
-    const { showLoadingModal, hideLoadingModal } = LoadingModal();
+    const { showLoadingModal, hideLoadingModal, isLoading } = LoadingModal();
 
 
     useEffect(()  => {
@@ -34,6 +34,11 @@ const Home = () => {
         fetchPids();
     }, []);
 
+
+    if (isLoading) {
+        return null
+    }
+    
     return (
         <Box sx={{ display: 'relative', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
             <Typography variant="h3" sx={{ marginBottom: 2 , fontWeight:'300', marginLeft:'10px', fontFamily:'roboto', fontSize:'40px' }}>

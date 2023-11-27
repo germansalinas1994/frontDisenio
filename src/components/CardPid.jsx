@@ -30,19 +30,37 @@ const StyledCard = styled(Card)(({ theme }) => ({
 const CardPid = ({ pids }) => {
 
 
-    if (pids.length === 0) {
-        return (
-            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
-                <Typography variant="h5" sx={{ marginBottom: '20px' }}>No se han agregado PIDs</Typography>
-            </Box>
-        );
-    }
 
     // Invertir el orden de los PIDs para mostrar los últimos cargados primero
     const reversedPids = [...pids].reverse()
 
     //Aca creo una variable para que en la pagina HOME se muestren solo los ultimos 3 pids cargados
     const lastThreePids = reversedPids.slice(0, 3);
+
+    if (pids.length === 0) {
+        return (
+            <Box
+                sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    height: "100vh", // Asegura que ocupe toda la altura de la pantalla
+                    width: "100%", // Asegura que ocupe todo el ancho de la pantalla
+                }}
+            >
+                <Typography variant="h4" component="h2" sx={{ 
+                    fontWeight: 'bold',
+                    fontSize: '2rem', // Tamaño más grande para el texto
+                    textAlign: 'center', // Centrar el texto
+                    color: '#333', // Puedes cambiar el color si lo deseas
+                }}>
+                    No se ha agregado ningún pid
+                </Typography>
+            </Box>
+        );
+    }
+
 
     return (
         <>
