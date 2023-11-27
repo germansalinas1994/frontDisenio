@@ -15,7 +15,8 @@ function GenericCard({ children }) {
         padding: '20px 10px',
         display: 'flex',
         height: '450px',
-        boxShadow: '0 0 15px rgba(0, 0, 0, 0.3)'
+        boxShadow: '0 0 15px rgba(0, 0, 0, 0.3)',
+        mt:7
 
       }}
     >
