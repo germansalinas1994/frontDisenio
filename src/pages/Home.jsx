@@ -4,7 +4,8 @@ import { useState, useEffect,useContext} from 'react';
 import axios from 'axios';
 import CardPid from '../components/CardPid';
 import GenericCard from '../components/GenericCard';
-
+import BotonVerMas from '../components/BotonVerMas';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
 
@@ -13,6 +14,7 @@ const Home = () => {
     //codigo para mostrar u ocultar el modal de carga
     const { showLoadingModal, hideLoadingModal, isLoading } = LoadingModal();
 
+    const noPids =  pids.length == 0; //Variable para indicar si no hay ningun pid
 
     useEffect(()  => {
         //Logica para obtener los pids
@@ -38,12 +40,17 @@ const Home = () => {
     }
     
     return (
-        <Box sx={{ display: 'relative', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
+        <Box sx={{ display: 'relative', flexDirection: 'column', height: '100vh' }}>
+            {!noPids && ( //Mientras haya al menos 1 PID cargado, se muestra el boton, de lo contrario, desaparece
+                <Link to='/pid'> 
+                    <BotonVerMas/>
+                </Link>
+            )}
             <Typography variant="h3" sx={{ marginBottom: 2 , fontWeight:'300', marginLeft:'10px', fontFamily:'roboto', fontSize:'40px' }}>
                 PROYECTOS RECIENTES
-            </Typography>
+            </Typography>     
             <GenericCard>
-                <Grid container spacing={2} justifyContent="left" sx={{display:'flex', maxWidth:1, backgroundColor:'secondary', mb:15}}>
+                <Grid  container spacing={30} sx={{backgroundColor:'secondary'}}>
                     <CardPid pids={pids} />
                 </Grid>
             </GenericCard>

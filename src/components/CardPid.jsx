@@ -6,16 +6,16 @@ import { shadows } from '@mui/system';
 
 
 const StyledCard = styled(Card)(({ theme }) => ({
-    marginLeft: '175px',
+    marginLeft: '120px',
     marginTop: '20px',
-    align: 'center',
-    width: '100%',
+    // justifyContent: 'center',
+    width: '350px',
     cursor: 'pointer',
     boxShadow: '0 0 15px rgba(0, 0, 0, 0.1)', // Sombra de la tarjeta
     borderRadius: 5,
     border: '2px solid black',
     display: 'flex',
-    flexDirection: 'column',
+    // flexDirection: 'column',
     '&:hover': { boxShadow: '0 0 15px rgba(0, 0, 0, 0.3)' }
   }));
   
@@ -59,8 +59,24 @@ const CardPid = ({ pids }) => {
                     fontSize: '2rem', // Tamaño más grande para el texto
                     textAlign: 'center', // Centrar el texto
                     color: '#333', // Puedes cambiar el color si lo deseas
+                    // justifyContent: 'center'
+                    marginLeft:'200px',
+                    marginTop:'60px'
                 }}>
-                    No se ha agregado ningún pid
+                    No se ha agregado ningún PID
+                </Typography>
+                <Typography variant="h7" sx={
+                    {
+                        // fontWeight: '',
+                        fontSize: '1.5rem', // Tamaño más grande para el texto
+                        textAlign: 'center', // Centrar el texto
+                        color: '#333', // Puedes cambiar el color si lo deseas
+                        // justifyContent: 'center'
+                        marginLeft:'200px',
+                        // marginTop:'60px'
+                    }
+                }>
+                    Debe agregar al menos uno.
                 </Typography>
             </Box>
         );
