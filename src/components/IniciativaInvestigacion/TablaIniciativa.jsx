@@ -10,7 +10,7 @@ import { format } from "date-fns";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import Tooltip from "@mui/material/Tooltip";
 
-const TablaPid = ({ pids, onDelete, detallePID }) => {
+const TablaIniciativa = ({ pids, onDelete, detallePID }) => {
   const formatDate = (date) => {
     return date ? format(new Date(date), "dd/MM/yyyy") : "";
   };
@@ -116,7 +116,7 @@ const TablaPid = ({ pids, onDelete, detallePID }) => {
       pageSizeOptions={[15, 20, 30]}
       rows={pids}
       columns={myColumns}
-      getRowId={(row) => row.idPid}
+      getRowId={(row) => row.idIniciativaInvestigacion}
       disableDensitySelector
       disableColumnSelector
       disableColumnFilter
@@ -137,4 +137,4 @@ const TablaPid = ({ pids, onDelete, detallePID }) => {
   );
 };
 
-export default TablaPid;
+export default TablaIniciativa;
