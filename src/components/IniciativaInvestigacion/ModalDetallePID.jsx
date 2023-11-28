@@ -107,10 +107,10 @@ const ModalDetallePID = ({
               {...register("denominacion",
                 {
                   required: "El nombre del PID es obligatorio",
-                  pattern: {
-                    value: /^[a-zA-Z\s]*$/,
-                    message: "El nombre debe contener solo letras"
-                  }
+                  // pattern: {
+                  //   value: /^[a-zA-Z\s]*$/,
+                  //   message: "El nombre debe contener solo letras"
+                  // }
 
                 })
               }
