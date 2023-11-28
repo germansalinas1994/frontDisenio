@@ -7,7 +7,7 @@ import darkTheme from './darkTheme';
 import NavBar from './NavBar';
 import ThemeContext from './ThemeContext';
 import ResponsiveAppBar from './ResponsiveAppBar';
-
+import Footer from './Footer';
 
 
 const Layout = ({ children }) => {
@@ -24,6 +24,7 @@ const Layout = ({ children }) => {
         <NavBar>
           {children}
         </NavBar>
+        {/* <Footer /> */}
       </ThemeProvider>
     </ThemeContext.Provider>
   );
