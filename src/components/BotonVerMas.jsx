@@ -1,5 +1,6 @@
 import { Button } from "@mui/material";
 import PlusIcon from '@mui/icons-material/Add';
+import SearchIcon from '@mui/icons-material/Search';
 
 const BotonVermas = ({ onClick }) => {
     return(
@@ -20,7 +21,7 @@ const BotonVermas = ({ onClick }) => {
             color: 'white',
         }}
         >
-            <PlusIcon />
+            <SearchIcon />
             Ver mas
         </Button>
     )
