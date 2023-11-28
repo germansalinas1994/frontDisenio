@@ -56,7 +56,6 @@ const CardPid = ({ pids }) => {
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          height: "60vh", // Asegura que ocupe toda la altura de la pantalla
           width: "100%", // Asegura que ocupe todo el ancho de la pantalla
         }}
       >

@@ -16,6 +16,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import ResponsiveAppBar from './ResponsiveAppBar';
+import Footer from './Footer';
 
 import Collapse from '@mui/material/Collapse';
 import { useNavigate } from 'react-router-dom';
