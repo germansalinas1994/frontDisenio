@@ -91,6 +91,7 @@ const ModalFormPID = ({ open, handleClose, ucts, tipoPids, universidades, onSubm
                                     required: "El nombre del director es obligatorio",
                                     pattern: {
                                         value: /^[a-zA-ZáéíóúÁÉÍÓÚ\s]*$/, // Permitir letras y tildes
+                                        value: /^[a-zA-ZáéíóúÁÉÍÓÚ\s]*$/, // Permitir letras y tildes
                                         message: "El nombre debe contener solo letras"
                                     }
 
