@@ -184,10 +184,10 @@ const NavBar = ({ children }) => {
                   <Collapse in={isSubmenuOpen} timeout="auto" unmountOnExit>
                     <List component="div" disablePadding>
                       {option.submenu.map((subItem) => (
-                        <ListItem key={subItem.name} disablePadding sx={{ display: 'block', paddingLeft: 4, backgroundColor: '#A4E9E7',boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)'}}>
+                        <ListItem key={subItem.name} disablePadding sx={{ display: 'block', backgroundColor: '#A4E9E7',boxShadow: '10px 10px 10px rgba(0, 0, 0, 0.1)'}}>
                           <ListItemButton onClick={() => handleNavigation(subItem.route)}>
                             {/*<ListItemIcon>{subItem.icon}</ListItemIcon>*/}
-                            <ListItemText primary={subItem.name} primaryTypographyProps={{ style: { fontWeight: 'bold' } }} />
+                            <ListItemText sx={{ml:4}} primary={subItem.name} primaryTypographyProps={{ style: { fontWeight: 'bold' } }} />
                           </ListItemButton>
                         </ListItem>
                       ))}
