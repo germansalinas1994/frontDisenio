@@ -42,7 +42,7 @@ const Home = () => {
     }
     
     return (
-        <Box sx={{ display: 'relative', flexDirection: 'column', height: '100vh' }}>
+        <Box sx={{ display: 'relative', flexDirection: 'column' }}>
             {!noPids && ( //Mientras haya al menos 1 PID cargado, se muestra el boton, de lo contrario, desaparece
                 <Link to='/pid'> 
                     <BotonVerMas/>
