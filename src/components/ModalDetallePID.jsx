@@ -93,7 +93,7 @@ const ModalDetallePID = ({ open, handleClose, pid, ucts, tipoPids, universidades
                                 {
                                     required: "El nombre del director es obligatorio",
                                     pattern: {
-                                        value: /^[a-zA-Z\s]*$/,
+                                        value: /^[a-zA-ZáéíóúÁÉÍÓÚ\s]*$/, // Permitir letras y tildes
                                         message: "El nombre debe contener solo letras"
                                     }
 
@@ -116,10 +116,10 @@ const ModalDetallePID = ({ open, handleClose, pid, ucts, tipoPids, universidades
                             {...register("denominacion",
                                 {
                                     required: "El nombre del PID es obligatorio",
-                                    pattern: {
-                                        value: /^[a-zA-Z\s]*$/,
-                                        message: "El nombre debe contener solo letras"
-                                    }
+                                    // pattern: {
+                                    //     value: /^.*\S.*$/, // Verificar que no esté vacío
+                                    //     message: "El nombre debe contener solo letras"
+                                    // }
 
                                 })
                             }
