@@ -92,6 +92,8 @@ const ListadoIniciativaInvestigacion = () => {
         cancelButtonColor: theme.palette.primary.main,
 
         cancelButtonText: "Cancelar",
+        confirmButtonText: 'Confirmar'
+
       }).then(async (result) => {
         if (result.isConfirmed) {
           showLoadingModal();

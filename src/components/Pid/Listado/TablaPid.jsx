@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Box, Grid } from "@mui/material";
-import { DataGrid, GridToolbar } from "@mui/x-data-grid";
+import { DataGrid, GridToolbar, esES } from "@mui/x-data-grid";
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/DeleteOutlined";
@@ -9,6 +9,9 @@ import Typography from "@mui/material/Typography";
 import { format } from "date-fns";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import Tooltip from "@mui/material/Tooltip";
+import { esES as esESCore } from '@mui/material/locale';
+
+
 
 const TablaPid = ({ pids, onDelete, detallePID }) => {
   const formatDate = (date) => {
@@ -104,6 +107,7 @@ const TablaPid = ({ pids, onDelete, detallePID }) => {
   }
   return (
     <DataGrid
+      localeText={esES.components.MuiDataGrid.defaultProps.localeText}
       sx={{
         maxWidth: 1,
         maxHeight: 1,
@@ -126,13 +130,7 @@ const TablaPid = ({ pids, onDelete, detallePID }) => {
           showQuickFilter: true,
         },
       }}
-      localeText={{
-        noRowsLabel: "No hay filas",
-        footerPaginationRowsPerPage: "Filas por página:",
-        footerPaginationPage: "Página:",
-        footerTotalRows: "Total de filas:",
-        selectionFooter: (count) => `${count} filas seleccionadas`,
-      }}
+
     />
   );
 };

@@ -81,32 +81,6 @@ const ModalDetallePID = ({ open, handleClose, pid, ucts, tipoPids, universidades
 
                     <Box mt={2}>
                         <TextField fullWidth
-                            mb={2}
-                            label="Nombre Director"
-                            placeholder="Ingrese el nombre del director"
-                            InputLabelProps={{ shrink: true }}
-                            disabled={!isEditMode}
-
-                            // value={pid?.director} 
-
-                            {...register("director",
-                                {
-                                    required: "El nombre del director es obligatorio",
-                                    pattern: {
-                                        value: /^[a-zA-Z\s]*$/,
-                                        message: "El nombre debe contener solo letras"
-                                    }
-
-                                })
-                            }
-                            error={Boolean(errors.director)}
-                            helperText={errors.director && errors.director.message}
-
-                        />
-                    </Box>
-
-                    <Box mt={3} mb={3}>
-                        <TextField fullWidth
                             label="Nombre PID"
                             placeholder="Ingrese el nombre del PID"
                             // value={pid?.denominacion} 
@@ -130,6 +104,35 @@ const ModalDetallePID = ({ open, handleClose, pid, ucts, tipoPids, universidades
                     </Box>
 
                     <Box mt={3} mb={3}>
+                        <TextField fullWidth
+                            mb={2}
+                            label="Nombre Director"
+                            placeholder="Ingrese el nombre del director"
+                            InputLabelProps={{ shrink: true }}
+                            disabled={!isEditMode}
+
+                            // value={pid?.director} 
+
+                            {...register("director",
+                                {
+                                    required: "El nombre del director es obligatorio",
+                                    pattern: {
+                                        value: /^[a-zA-ZáéíóúÁÉÍÓÚ\s]*$/, // Permitir letras y tildes
+                                        message: "El nombre debe contener solo letras"
+                                    }
+
+                                })
+                            }
+                            error={Boolean(errors.director)}
+                            helperText={errors.director && errors.director.message}
+
+                        />
+
+
+                    </Box>
+
+                    <Box mt={3} mb={3}>
+
                         <FormControl fullWidth error={Boolean(errors.tipoPid)}>
                             <InputLabel id="tipo-pid-label">Tipo PID</InputLabel>
                             <Select

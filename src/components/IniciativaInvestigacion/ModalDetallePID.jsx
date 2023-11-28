@@ -97,45 +97,55 @@ const ModalDetallePID = ({
           />
 
           <Box mt={2}>
-            <TextField
-              fullWidth
+            <TextField fullWidth
+              label="Nombre PID"
+              placeholder="Ingrese el nombre del PID"
+              // value={pid?.denominacion} 
+              InputLabelProps={{ shrink: true }}
+              disabled={!isEditMode}
+
+              {...register("denominacion",
+                {
+                  required: "El nombre del PID es obligatorio",
+                  pattern: {
+                    value: /^[a-zA-Z\s]*$/,
+                    message: "El nombre debe contener solo letras"
+                  }
+
+                })
+              }
+              error={Boolean(errors.denominacion)}
+              helperText={errors.denominacion && errors.denominacion.message}
+
+            />
+          </Box>
+
+          <Box mt={3} mb={3}>
+            <TextField fullWidth
               mb={2}
               label="Nombre Director"
               placeholder="Ingrese el nombre del director"
               InputLabelProps={{ shrink: true }}
               disabled={!isEditMode}
-              // value={pid?.director}
 
-              {...register("director", {
-                required: "El nombre del director es obligatorio",
-                pattern: {
-                  value: /^[a-zA-Z\s]*$/,
-                  message: "El nombre debe contener solo letras",
-                },
-              })}
+              // value={pid?.director} 
+
+              {...register("director",
+                {
+                  required: "El nombre del director es obligatorio",
+                  pattern: {
+                    value: /^[a-zA-ZáéíóúÁÉÍÓÚ\s]*$/, // Permitir letras y tildes
+                    message: "El nombre debe contener solo letras"
+                  }
+
+                })
+              }
               error={Boolean(errors.director)}
               helperText={errors.director && errors.director.message}
-            />
-          </Box>
 
-          <Box mt={3} mb={3}>
-            <TextField
-              fullWidth
-              label="Nombre PID"
-              placeholder="Ingrese el nombre del PID"
-              // value={pid?.denominacion}
-              InputLabelProps={{ shrink: true }}
-              disabled={!isEditMode}
-              {...register("denominacion", {
-                required: "El nombre del PID es obligatorio",
-                pattern: {
-                  value: /^[a-zA-Z\s]*$/,
-                  message: "El nombre debe contener solo letras",
-                },
-              })}
-              error={Boolean(errors.denominacion)}
-              helperText={errors.denominacion && errors.denominacion.message}
             />
+
+
           </Box>
 
           <Box mt={3} mb={3}>

@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Box, Grid } from "@mui/material";
-import { DataGrid, GridToolbar } from "@mui/x-data-grid";
+import { DataGrid, GridToolbar, esES } from "@mui/x-data-grid";
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/DeleteOutlined";
@@ -104,6 +104,8 @@ const TablaIniciativa = ({ pids, onDelete, detallePID }) => {
   }
   return (
     <DataGrid
+      localeText={esES.components.MuiDataGrid.defaultProps.localeText}
+
       sx={{
         maxWidth: 1,
         maxHeight: 1,
@@ -126,13 +128,7 @@ const TablaIniciativa = ({ pids, onDelete, detallePID }) => {
           showQuickFilter: true,
         },
       }}
-      localeText={{
-        noRowsLabel: "No hay filas",
-        footerPaginationRowsPerPage: "Filas por página:",
-        footerPaginationPage: "Página:",
-        footerTotalRows: "Total de filas:",
-        selectionFooter: (count) => `${count} filas seleccionadas`,
-      }}
+
     />
   );
 };
