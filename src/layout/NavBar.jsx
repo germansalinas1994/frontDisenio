@@ -161,7 +161,7 @@ const NavBar = ({ children }) => {
         {/*Quiero hacer un link a home que sea el logo  */}
 
         <DrawerHeader>
-            <Link href="/" underline="none">
+            <Link href="/home" underline="none">
               <img src={logo} alt="UTN Logo" style={{ maxHeight: '80%', maxWidth: '80%' , marginTop: '10px', marginLeft: '20px' }} />
             </Link>
 

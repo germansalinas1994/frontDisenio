@@ -1,9 +1,12 @@
 import { Card, CardActionArea, CardContent, CardMedia, Typography, Grid, Box} from "@mui/material";
 import { Link } from "react-router-dom";
-import pid from "../../public/images/pid.jpg"
+import proyecto from "../../public/images/proyecto.jpg"
+import proyecto2 from "../../public/images/proyecto2.jpg"
+import proyecto3 from "../../public/images/proyecto3.jpg"
 import styled from "@mui/material/styles/styled"
 import { shadows } from '@mui/system';
 
+const images = [proyecto, proyecto2, proyecto3];
 
 const StyledCard = styled(Card)(({ theme }) => ({
     marginLeft: '120px',
@@ -23,9 +26,11 @@ const StyledCard = styled(Card)(({ theme }) => ({
     display: 'flex',
     flexDirection: 'column',
     flexGrow: 1,
-    alignItems: 'flex-start',
+    // alignItems: 'flex-start',
     height: '200px', // Altura fija para el contenido de la tarjeta
     overflow: 'hidden',
+    width: '400px',
+    maxWidth: '400px',
     textOverflow: 'ellipsis',
     padding: theme.spacing(2), // Ajusta el padding según tus preferencias
     textAlign: 'left'
@@ -85,27 +90,27 @@ const CardPid = ({ pids }) => {
 
     return (
         <>
-            {lastThreePids.map((p) => (
-            <Grid item xs={12} sm={6} md={4} lg={3} key={p.idPid} mb={5}>
-            <StyledCard>
-                <Card>
-                    <CardActionArea sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flexGrow: 1 }}>
-                    <CardMedia component="img" height="160" src={pid} alt="ejemplo" />
-                    <StyledCardContent>
-                        <CardContent>
-                            <Typography variant="h5" align="left" sx={{ fontWeight: 'bold', mb: 1, textAlign: 'left' }}>
-                            {p.denominacion}
-                            </Typography>
-                            <Typography align="left" color="textSecondary" sx={{ fontSize: '1.0rem', textAlign: 'left' }}>
-                            {p.universidad.nombre}
-                            </Typography>
-                        </CardContent>
-                    </StyledCardContent>
-                    </CardActionArea>
-                </Card>
-            </StyledCard>
-            </Grid>
-            ))}
+           {lastThreePids.map((p, index) => (
+  <Grid item xs={12} sm={6} md={4} lg={3} key={p.idPid} mb={5}>
+    <StyledCard>
+      <Card>
+        <CardActionArea sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flexGrow: 1 }}>
+          <CardMedia component="img" height="160" src={images[index % images.length]} alt="ejemplo" />
+          <StyledCardContent>
+            <CardContent>
+              <Typography variant="h5" align="left" sx={{ fontWeight: 'bold', mb: 1, textAlign: 'left' }}>
+                {p.denominacion}
+              </Typography>
+              <Typography align="left" color="textSecondary" sx={{ fontSize: '1.0rem', textAlign: 'left' }}>
+                {p.universidad.nombre}
+              </Typography>
+            </CardContent>
+          </StyledCardContent>
+        </CardActionArea>
+      </Card>
+    </StyledCard>
+  </Grid>
+))}
         </>
     )
 }
