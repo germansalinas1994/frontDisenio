@@ -201,7 +201,7 @@ const NavBar = ({ children }) => {
         </Box>
 
       </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p:3 }}>
+      <Box component="main" sx={{ flexGrow: 1, p: 3, display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
         <DrawerHeader />
         {children}
 

@@ -5,14 +5,13 @@ const Footer = () => {
   return (
     <Box
       sx={{
-        sx: { flexGrow: 1 },
         width: '100%',
-        backgroundColor: '#41b5af14', // o cualquier color de su tema
+        backgroundColor: '#41b5af14',
         padding: '16px',
-        position: 'fixed', // Mantiene el footer relativo al contenido
+        position: 'relative', // Cambie a 'relative'
         bottom: 0,
         textAlign: 'center',
-        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)', // Sombra más suave y difusa
+        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
       }}
     >
       <Typography variant="body2">
