@@ -5,7 +5,7 @@ import { Box, Grid, Typography } from "@mui/material";
 import BotonAgregar from "../../components/Agregar";
 import LoadingModal from "../../components/LoadingModal";
 import { get, useForm } from "react-hook-form";
-import ModalFormPID from "../../components/Pid/Listado/ModalFormPID.jsx";
+import ModalFormPID from '../../components/IniciativaInvestigacion/ModalFormPID.jsx'
 import Swal from "sweetalert2";
 import dayjs from "dayjs";
 import theme from "../../layout/theme.js";
@@ -285,6 +285,7 @@ const ListadoIniciativaInvestigacion = () => {
 
       setPidValues(pid);
       setValue("denominacion", res.data.result.data.denominacion);
+      setValue("programa", res.data.result.data.programa);
       setValue("director", res.data.result.data.director);
       setValue("tipoPid", res.data.result.data.tipoPid.idTipoPid);
       setValue("uct", res.data.result.data.uct.idUct);
@@ -298,6 +299,7 @@ const ListadoIniciativaInvestigacion = () => {
         dayjs(res.data.result.data.fechaHasta).format("DD/MM/YYYY")
       );
 
+      debugger;
       await hideLoadingModal();
       await setOpenModalDetalle(true);
     } catch (error) {

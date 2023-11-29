@@ -38,6 +38,7 @@ const ModalDetallePID = ({
     if (pid && open) {
       reset({
         director: pid.director,
+        programa: pid.programa,
         denominacion: pid.denominacion,
         tipoPid: pid.tipoPid.idTipoPid,
         universidad: pid.universidad.idUniversidad,
@@ -142,6 +143,30 @@ const ModalDetallePID = ({
               }
               error={Boolean(errors.director)}
               helperText={errors.director && errors.director.message}
+
+            />
+
+
+          </Box>
+          <Box mt={3} mb={3}>
+            <TextField fullWidth
+              mb={2}
+              label="Programa"
+              placeholder="Ingrese el nombre del programa"
+              InputLabelProps={{ shrink: true }}
+              disabled={!isEditMode}
+
+              // value={pid?.director} 
+
+              {...register("programa",
+                {
+                  required: "El nombre del programa es obligatorio",
+                 
+
+                })
+              }
+              error={Boolean(errors.programa)}
+              helperText={errors.programa && errors.programa.message}
 
             />
 
